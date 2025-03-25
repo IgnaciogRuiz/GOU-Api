@@ -1,0 +1,174 @@
+models:
+  User:
+    id: id
+    dni: string:20 unique
+    name: string:100
+    email: string:100 unique
+    phone: string:20
+    password: string:255
+    validated: boolean
+    cvu: string:22 unique
+    pending_balance: decimal:10,2
+    relationships:
+      hasMany: Vehicle, Reservation, Transaction, Chat, Message, Rating, DriverBlock
+
+  Vehicle:
+    id: id
+    user_id: id foreign:users.id
+    brand: string:50
+    model: string:50
+    year: integer
+    license_plate: string:10 unique
+    dnrpa_approved: boolean
+    relationships:
+      hasMany: Trip
+      belongsTo: User
+
+  Trip:
+    id: id
+    vehicle_id: id foreign:vehicles.id
+    origin: string:255
+    destination: string:255
+    date: datetime
+    available_seats: integer
+    price: decimal:10,2
+    status: enum:pending,in_progress,completed,canceled
+    relationships:
+      hasMany: Reservation, Allows, Rating
+      belongsTo: Vehicle
+
+  Tag:
+    id: id
+    name: string:20
+    relationships:
+      hasMany: Allows
+
+  Allows:
+    tag_id: id foreign:tags.id primary
+    trip_id: id foreign:trips.id primary
+    relationships:
+      belongsTo: Tag, Trip
+
+  Reservation:
+    id: id
+    user_id: id foreign:users.id
+    trip_id: id foreign:trips.id
+    status: enum:pending,confirmed,canceled
+    reservation_date: datetime
+    relationships:
+      belongsTo: User, Trip
+      hasOne: Payment
+
+  Payment:
+    id: id
+    transaction: integer unique
+    reservation_id: id foreign:reservations.id
+    amount: decimal:10,2
+    payment_method: enum:cash,mercadopago
+    payment_date: datetime
+    status: enum:pending,completed,failed
+    relationships:
+      belongsTo: Reservation
+      hasOne: Transaction
+
+  Transaction:
+    id: id
+    transaction: integer unique
+    payment_id: id foreign:payments.id
+    driver_id: id foreign:users.id
+    total_amount: decimal:10,2
+    company_commission: decimal:10,2
+    driver_final_amount: decimal:10,2
+    transaction_date: datetime
+    status: enum:pending,processed,failed
+    relationships:
+      belongsTo: Payment, User
+
+  Chat:
+    id: id
+    user1_id: id foreign:users.id
+    user2_id: id foreign:users.id
+    creation_date: datetime
+    relationships:
+      hasMany: Message
+      belongsTo: User
+
+  Message:
+    id: id
+    chat_id: id foreign:chats.id
+    sender_id: id foreign:users.id
+    message: text
+    sent_date: datetime
+    status: enum:sent,read
+    relationships:
+      belongsTo: Chat, User
+
+  Rating:
+    id: id
+    trip_id: id foreign:trips.id
+    user_id: id foreign:users.id
+    driver_id: id foreign:users.id
+    rating: integer
+    comment: text
+    rating_date: datetime
+    relationships:
+      belongsTo: Trip, User
+
+  DriverBlock:
+    id: id
+    driver_id: id foreign:users.id
+    reason: text
+    block_date: datetime
+    status: enum:active,removed
+    relationships:
+      belongsTo: User
+
+controllers:
+  UserController:
+    resource: api
+
+  VehicleController:
+    resource: api
+
+  TripController:
+    resource: api
+
+  TagController:
+    resource: api
+
+  AllowsController:
+    resource: api
+
+  ReservationController:
+    resource: api
+
+  PaymentController:
+    resource: api
+
+  TransactionController:
+    resource: api
+
+  ChatController:
+    resource: api
+
+  MessageController:
+    resource: api
+
+  RatingController:
+    resource: api
+
+  DriverBlockController:
+    resource: api
+
+seeders: User,
+  Vehicle,
+  Trip,
+  Tag,
+  Allows,
+  Reservation,
+  Payment,
+  Transaction,
+  Chat,
+  Message,
+  Rating,
+  DriverBloc,
