@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -15,11 +15,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        // Intentar autenticar al usuario con DNI y contraseña
         $request->authenticate();
 
-        $request->session()->regenerate();
+        // Obtener el usuario autenticado
+        $user = User::where('dni', $request->input('dni'))->firstOrFail();
 
-        return response()->noContent();
+        // Generar el token de acceso
+        $token = $user->createToken('GOU')->plainTextToken;
+
+        // Retornar el token en la respuesta
+        return response()->json(['token' => $token]);
     }
 
     /**
@@ -27,12 +33,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        // Invalidar el token actual
+        $request->user()->tokens->each(function ($token) {
+            $token->delete();
+        });
 
         return response()->noContent();
     }
 }
+

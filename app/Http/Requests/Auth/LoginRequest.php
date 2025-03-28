@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash; 
+use App\Models\User; 
 
 class LoginRequest extends FormRequest
 {
@@ -36,12 +38,13 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
-    {
+    public function authenticate(): void {
         $this->ensureIsNotRateLimited();
 
-        // Buscar usuario por DNI y verificar la contraseña
-        if (! Auth::attempt(['dni' => $this->input('dni'), 'password' => $this->input('password')], $this->boolean('remember'))) {
+        // Intentamos encontrar al usuario por DNI
+        $user = User::where('dni', $this->input('dni'))->first();
+
+        if (!$user || !Hash::check($this->input('password'), $user->password)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -49,7 +52,6 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
     }
 
     /**
