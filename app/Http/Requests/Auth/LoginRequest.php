@@ -40,18 +40,25 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void {
         $this->ensureIsNotRateLimited();
-
-        // Intentamos encontrar al usuario por DNI
+    
+        // Buscamos al usuario por DNI
         $user = User::where('dni', $this->input('dni'))->first();
-
-        if (!$user || !Hash::check($this->input('password'), $user->password)) {
+    
+        if (!$user) {
             RateLimiter::hit($this->throttleKey());
-
+    
             throw ValidationException::withMessages([
-                'dni' => __('auth.failed'),
+                'dni' => __('El DNI ingresado no existe.'),
             ]);
         }
-
+    
+        if (!Hash::check($this->input('password'), $user->password)) {
+            RateLimiter::hit($this->throttleKey());
+    
+            throw ValidationException::withMessages([
+                'password' => __('La contraseña ingresada es incorrecta.'),
+            ]);
+        }
     }
 
     /**

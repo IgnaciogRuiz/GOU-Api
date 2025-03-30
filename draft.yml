@@ -4,7 +4,7 @@ models:
     dni: string:20 unique
     name: string:100
     email: string:100 unique
-    phone: string:20
+    phone: string:20 unique
     password: string:255
     validated: boolean
     cvu: string:22 unique
