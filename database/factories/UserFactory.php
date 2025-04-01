@@ -21,11 +21,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'dni' => fake()->regexify('[A-Za-z0-9]{20}'),
-            'name' => fake()->name(),
+            'dni' => fake()->regexify('[0-9]{8}'),
+            'name' => fake()->name(),   
             'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
-            'password' => fake()->password(),
+            'password' => bcrypt('password'),
             'validated' => fake()->boolean(),
             'cvu' => fake()->regexify('[A-Za-z0-9]{22}'),
             'pending_balance' => fake()->randomFloat(2, 0, 99999999.99),
