@@ -48,7 +48,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
     
             throw ValidationException::withMessages([
-                'dni' => __('El DNI ingresado no existe.'),
+                'dni' => __('El DNI ingresado no esta registrado.'),
             ]);
         }
     
