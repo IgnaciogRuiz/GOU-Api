@@ -15,16 +15,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        // Intentar autenticar al usuario con DNI y contraseña
+
         $request->authenticate();
 
-        // Obtener el usuario autenticado
         $user = User::where('dni', $request->input('dni'))->firstOrFail();
 
-        // Generar el token de acceso
-        $token = $user->createToken('GOU')->plainTextToken;
+        // Eliminar tokens anteriores de este mismo device (opcional)
+        $user->tokens()->where('name', $request->device_name)->delete();
 
-        // Retornar el token en la respuesta
+        // Generar un token nuevo con el nombre del dispositivo
+        $token = $user->createToken($request->device_name)->plainTextToken;
+
         return response()->json(['token' => $token]);
     }
 
@@ -34,9 +35,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         // Invalidar el token actual
-        $request->user()->tokens->each(function ($token) {
-            $token->delete();
-        });
+        $request->user()->currentAccessToken()->delete();
 
         return response()->noContent();
     }

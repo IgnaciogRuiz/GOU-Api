@@ -30,6 +30,7 @@ class LoginRequest extends FormRequest
         return [
             'dni' => ['required', 'string'],
             'password' => ['required', 'string'],
+            'device_name' => ['required', 'string'],
         ];
     }
 
