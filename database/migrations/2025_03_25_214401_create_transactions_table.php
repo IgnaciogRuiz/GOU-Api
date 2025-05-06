@@ -15,12 +15,11 @@ return new class extends Migration
 
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('transaction')->unique();
+            $table->unsignedBigInteger('transaction')->unique();
             $table->foreignId('payment_id')->constrained();
             $table->foreignId('driver_id')->constrained('users');
             $table->decimal('total_amount', 10, 2);
-            $table->decimal('company_commission', 10, 2);
-            $table->decimal('driver_final_amount', 10, 2);
+            $table->decimal('company_final_amount', 10, 2);
             $table->dateTime('transaction_date');
             $table->enum('status', ["pending","processed","failed"]);
             $table->foreignId('user_id');

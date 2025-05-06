@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('trip_id')->constrained();
-            $table->enum('status', ["pending","confirmed","canceled"]);
+            $table->enum('status', ["pending","in_progress","completed","canceled"]);
             $table->dateTime('reservation_date');
             $table->timestamps();
         });

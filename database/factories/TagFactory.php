@@ -20,8 +20,21 @@ class TagFactory extends Factory
      */
     public function definition(): array
     {
+        $etiquetasPermitidas = [
+            "comer",
+            "fumar",
+            "escuchar música",
+            "usar GPS",
+            "hablar (manos libres)",
+            "llevar mascotas",
+            "tomar bebidas sin alcohol",
+            "cargar el celular",
+            "usar aire acondicionado",
+            "viajar con acompañantes"
+        ];
+
         return [
-            'name' => fake()->name(),
+            'name' => $etiquetasPermitidas[random_int(0,9)],
         ];
     }
 }

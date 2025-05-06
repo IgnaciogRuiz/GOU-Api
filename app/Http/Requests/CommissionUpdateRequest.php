@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DriverBlockStoreRequest extends FormRequest
+class CommissionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,10 +20,7 @@ class DriverBlockStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'reason' => ['required', 'string'],
-            'block_date' => ['required'],
-            'status' => ['required', 'in:active,removed'],
-            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'value' => ['required', 'numeric'],
         ];
     }
 }

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->dateTime('date');
             $table->integer('available_seats');
             $table->decimal('price', 10, 2);
-            $table->enum('status', ["pending","in_progress","completed","canceled"]);
             $table->timestamps();
         });
 

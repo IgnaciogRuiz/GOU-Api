@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Allows extends Model
+class Commission extends Model
 {
     use HasFactory;
 
@@ -17,8 +15,7 @@ class Allows extends Model
      * @var array
      */
     protected $fillable = [
-        'tag_id',
-        'trip_id',
+        'value',
     ];
 
     /**
@@ -28,8 +25,6 @@ class Allows extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'tag_id' => 'integer',
-        'trip_id' => 'integer',
+        'value' => 'decimal',
     ];
-
 }

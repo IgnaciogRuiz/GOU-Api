@@ -7,6 +7,9 @@ use Illuminate\Support\Str;
 use App\Models\Reservation;
 use App\Models\Trip;
 use App\Models\User;
+use App\Models\Vehicle;
+
+
 
 class ReservationFactory extends Factory
 {
@@ -22,10 +25,30 @@ class ReservationFactory extends Factory
      */
     public function definition(): array
     {
+        //creamos un usuario (el que va a viajar)
+        $usuario = User::factory()->create();
+        
+        //Creamos un viaje
+        $trip = Trip::factory()->create();
+
+        $cant_etiquetas = random_int(0,9);
+        $allows = [];
+        for ($i=1; $i<$cant_etiquetas; $i++) {
+            $fakeid = random_int(1,10);
+            if ( !in_array($fakeid, $allows)) {
+               array_push($allows, $fakeid);  
+            }
+        }
+        
+        $trip->tags()->sync($allows);
+
+        $estado=["pending","in_progress","completed","canceled"];
+        $status=random_int(0,3);
+
         return [
-            'user_id' => User::factory(),
-            'trip_id' => Trip::factory(),
-            'status' => fake()->randomElement(["pending","confirmed","canceled"]),
+            'user_id' => $usuario,
+            'trip_id' => $trip,
+            'status' => $estado[$status],
             'reservation_date' => fake()->dateTime(),
         ];
     }

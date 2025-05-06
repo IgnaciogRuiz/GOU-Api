@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->integer('transaction')->unique();
+            $table->unsignedBigInteger('transaction')->unique();
             $table->foreignId('reservation_id')->constrained();
             $table->decimal('amount', 10, 2);
             $table->enum('payment_method', ["cash","mercadopago"]);

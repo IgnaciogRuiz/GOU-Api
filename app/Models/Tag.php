@@ -28,8 +28,9 @@ class Tag extends Model
         'id' => 'integer',
     ];
 
-    public function allows(): HasMany
+    public function trips()
     {
-        return $this->hasMany(Allows::class);
+        return $this->belongsToMany(Trip::class, 'allows', 'tag_id', 'trip_id');
     }
+
 }

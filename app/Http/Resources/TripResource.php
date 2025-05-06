@@ -20,7 +20,6 @@ class TripResource extends JsonResource
             'date' => $this->date,
             'available_seats' => $this->available_seats,
             'price' => $this->price,
-            'status' => $this->status,
             'ratings' => RatingCollection::make($this->whenLoaded('ratings')),
             'vehicle' => VehicleResource::make($this->whenLoaded('vehicle')),
         ];

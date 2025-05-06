@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Trip extends Model
@@ -23,7 +24,6 @@ class Trip extends Model
         'date',
         'available_seats',
         'price',
-        'status',
     ];
 
     /**
@@ -43,10 +43,11 @@ class Trip extends Model
         return $this->hasMany(Reservation::class);
     }
 
-    public function allows(): HasMany
+    public function tags()
     {
-        return $this->hasMany(Allows::class);
+        return $this->belongsToMany(Tag::class, 'allows', 'trip_id', 'tag_id');
     }
+
 
     public function ratings(): HasMany
     {

@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\DriverBloc;
+use App\Models\Commission;
 use Illuminate\Database\Seeder;
 
-class DriverBlocSeeder extends Seeder
+class CommissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DriverBloc::factory()->count(5)->create();
+        Commission::factory()->count(1)->create();
     }
 }

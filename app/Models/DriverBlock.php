@@ -16,7 +16,6 @@ class DriverBlock extends Model
      * @var array
      */
     protected $fillable = [
-        'driver_id',
         'reason',
         'block_date',
         'status',
@@ -30,7 +29,6 @@ class DriverBlock extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'driver_id' => 'integer',
         'block_date' => 'datetime',
         'user_id' => 'integer',
     ];

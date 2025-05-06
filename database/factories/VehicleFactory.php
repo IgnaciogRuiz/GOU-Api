@@ -21,13 +21,29 @@ class VehicleFactory extends Factory
      */
     public function definition(): array
     {
+        $brandsAndModels = [
+            "Toyota" => ["Corolla", "Hilux", "Yaris"],
+            "Ford" => ["Focus", "Ranger", "EcoSport"],
+            "Chevrolet" => ["Onix", "Cruze", "Tracker"],
+            "Volkswagen" => ["Golf", "Polo", "Amarok"],
+            "Renault" => ["Kangoo", "Sandero", "Duster"],
+            "Peugeot" => ["208", "308", "Partner"],
+            "Fiat" => ["Cronos", "Toro", "Strada"],
+            "Honda" => ["Civic", "HR-V", "Fit"],
+            "Nissan" => ["Frontier", "Versa", "Kicks"],
+            "Jeep" => ["Renegade", "Compass", "Wrangler"]
+        ];
+
+        $brand = array_rand($brandsAndModels);
+        $model = $brandsAndModels[$brand][array_rand($brandsAndModels[$brand])];
+        
         return [
             'user_id' => User::factory(),
-            'brand' => fake()->regexify('[A-Za-z0-9]{50}'),
-            'model' => fake()->regexify('[A-Za-z0-9]{50}'),
-            'year' => fake()->numberBetween(-10000, 10000),
-            'license_plate' => fake()->regexify('[A-Za-z0-9]{10}'),
-            'dnrpa_approved' => fake()->boolean(),
+            'brand' => $brand,
+            'model' => $model,
+            'year' => fake()->numberBetween(2000, 2025),
+            'license_plate' => fake()->regexify('[A-Za-z0-9]{8}'),
+            'dnrpa_approved' => true,
         ];
     }
 }

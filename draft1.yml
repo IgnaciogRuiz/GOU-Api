@@ -1,0 +1,13 @@
+models:
+  Commission:
+    id: id
+    value: decimal
+
+ 
+controllers:
+  CommissionController:
+    resource: api
+
+ 
+seeders: Commission
+

@@ -2,7 +2,8 @@ models:
   User:
     id: id
     dni: string:20 unique
-    name: string:100
+    firstname: string:100
+    lastname: string:100
     email: string:100 unique
     phone: string:20 unique
     password: string:255
@@ -34,20 +35,19 @@ models:
     price: decimal:10,2
     status: enum:pending,in_progress,completed,canceled
     relationships:
-      hasMany: Reservation, Allows, Rating
-      belongsTo: Vehicle
+      hasMany: Reservation, Rating
+      belongsTo: Vehicle, Allows
+      belongsToMany: Tag
 
   Tag:
     id: id
     name: string:20
     relationships:
-      hasMany: Allows
+      belongsToMany: Trip
 
   Allows:
     tag_id: id foreign:tags.id primary
     trip_id: id foreign:trips.id primary
-    relationships:
-      belongsTo: Tag, Trip
 
   Reservation:
     id: id
@@ -171,4 +171,4 @@ seeders: User,
   Chat,
   Message,
   Rating,
-  DriverBloc,
+  DriverBlock,

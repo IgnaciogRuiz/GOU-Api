@@ -26,8 +26,8 @@ class RatingFactory extends Factory
             'trip_id' => Trip::factory(),
             'user_id' => User::factory(),
             'driver_id' => User::factory(),
-            'rating' => fake()->numberBetween(-10000, 10000),
-            'comment' => fake()->text(),
+            'rating' => fake()->numberBetween(0, 10),
+            'comment' => fake()->realText(100, 1),
             'rating_date' => fake()->dateTime(),
         ];
     }

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DriverBlockResource extends JsonResource
+class CommissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,10 +14,7 @@ class DriverBlockResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'reason' => $this->reason,
-            'block_date' => $this->block_date,
-            'status' => $this->status,
-            'user_id' => $this->user_id,
+            'value' => $this->value,
         ];
     }
 }

@@ -22,9 +22,9 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            'transaction' => fake()->numberBetween(-10000, 10000),
+            'transaction' => fake()->regexify('[0-9]{20}'),
             'reservation_id' => Reservation::factory(),
-            'amount' => fake()->randomFloat(2, 0, 99999999.99),
+            'amount' => fake()->randomFloat(2, 0, 99999.99),
             'payment_method' => fake()->randomElement(["cash","mercadopago"]),
             'payment_date' => fake()->dateTime(),
             'status' => fake()->randomElement(["pending","completed","failed"]),

@@ -21,3 +21,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('ratings', App\Http\Controllers\RatingController::class);
     Route::apiResource('driver-blocks', App\Http\Controllers\DriverBlockController::class);
 });
+
+
+Route::apiResource('commissions', App\Http\Controllers\CommissionController::class);

@@ -26,7 +26,6 @@ class TripStoreRequest extends FormRequest
             'date' => ['required'],
             'available_seats' => ['required', 'integer'],
             'price' => ['required', 'numeric', 'between:-99999999.99,99999999.99'],
-            'status' => ['required', 'in:pending,in_progress,completed,canceled'],
         ];
     }
 }
