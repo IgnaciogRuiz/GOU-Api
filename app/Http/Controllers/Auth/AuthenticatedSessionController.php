@@ -7,11 +7,16 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Dedoc\Scramble\Attributes\Group;
 
+#[Group('Auth')]
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Handle an incoming authentication request.
+     * Login Request
+     * 
+     * Handle an incoming authentication request. This Route does not requiere BearerToken.
+     * @unauthenticated
      */
     public function store(LoginRequest $request)
     {
@@ -30,6 +35,8 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Logout Request
+     * 
      * Destroy an authenticated session.
      */
     public function destroy(Request $request)
@@ -40,4 +47,3 @@ class AuthenticatedSessionController extends Controller
         return response()->noContent();
     }
 }
-

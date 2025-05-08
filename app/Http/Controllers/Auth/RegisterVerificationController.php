@@ -5,25 +5,27 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
-use App\Models\User;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\EmailVerificationCodeNotification;
-use Twilio\Rest\Client;
+use Dedoc\Scramble\Attributes\Group;
 
+#[Group('Auth')]
 class RegisterVerificationController extends Controller
 {
-    // Verificar si el email es único
-    public function verifyEmail(Request $request) {
+    /**
+     * Verify Email Request.
+     * 
+     * Esta ruta se encarga de verificar si el email ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo.
+     * @unauthenticated
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function verifyEmail(Request $request)
+    {
         $request->validate(['email' => 'required|email|unique:users,email']);
 
         $emailCode = mt_rand(100000, 999999); // Código de 6 dígitos
-    
+
         DB::table('email_verifications')->updateOrInsert(
             ['email' => $request->email],
             [
@@ -33,18 +35,26 @@ class RegisterVerificationController extends Controller
             ]
         );
 
-            // Crear un "notifiable" falso para enviar la notificación sin tener un usuario
-            $notifiable = new \stdClass();  // Usamos un objeto estándar para el correo
-            $notifiable->email = $request->email;
+        // Crear un "notifiable" falso para enviar la notificación sin tener un usuario
+        $notifiable = new \stdClass();  // Usamos un objeto estándar para el correo
+        $notifiable->email = $request->email;
 
-            // Enviar la notificación personalizada al correo proporcionado
-            Notification::route('mail', $request->email)
-                        ->notify(new EmailVerificationCodeNotification($emailCode));
+        // Enviar la notificación personalizada al correo proporcionado
+        Notification::route('mail', $request->email)
+            ->notify(new EmailVerificationCodeNotification($emailCode));
 
-            return response()->json(['message' => 'Código enviado al correo']);
+        return response()->json(['message' => 'Código enviado al correo']);
     }
 
-    public function verifyEmailToken(Request $request) {
+    /**
+     * Verify Email Token Request.
+     * 
+     * Esta ruta verifica que el token ingresado proviene del mail asi dando el "ok" para utilizarlo en Registration Request.
+     * @unauthenticated
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function verifyEmailToken(Request $request)
+    {
         $request->validate([
             'email' => 'required|email',
             'code' => 'required|digits:6'
@@ -64,12 +74,21 @@ class RegisterVerificationController extends Controller
         return response()->json(['message' => 'Email verificado correctamente']);
     }
 
-    // Verificar si el celular es único
-    public function verifyPhone(Request $request) {
+
+    /**
+     * Verify Phone Request.
+     * 
+     * Esta ruta se encarga de verificar si el telefono ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo. Falta terminar la funcion para que envie el sms
+     * @unauthenticated
+     * 
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function verifyPhone(Request $request)
+    {
         $request->validate(['phone' => 'required|digits:10|unique:users,phone']);
-    
+
         $phoneCode = rand(100000, 999999);
-    
+
         DB::table('phone_verifications')->updateOrInsert(
             ['phone' => $request->phone],
             [
@@ -78,21 +97,29 @@ class RegisterVerificationController extends Controller
                 'updated_at' => now(),
             ]
         );
-    
+
         // Formato del teléfono: +54 9 XXX XXXXXXX
         $phone = '+54' . $request->phone;
-    
+
         // Enviar SMS con Twilio (todavia no funca)
         // $twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
         // $twilio->messages->create($phone, [
         //     'from' => env('TWILIO_PHONE_NUMBER'),
         //     'body' => "Tu código de verificación es: $phoneCode"
         // ]);
-    
+
         return response()->json(['message' => 'Código enviado']);
     }
 
-    public function verifyPhoneToken(Request $request) {
+    /**
+     * Verify Phone Token Request.
+     * 
+     * Esta ruta verifica que el token ingresado proviene del telefono asi dando el "ok" para utilizarlo en Registration Request.
+     * @unauthenticated
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function verifyPhoneToken(Request $request)
+    {
         $request->validate([
             'phone' => 'required|digits:10',
             'code' => 'required|digits:6'
@@ -113,8 +140,17 @@ class RegisterVerificationController extends Controller
         return response()->json(['message' => 'Teléfono verificado correctamente']);
     }
 
-    // Verificar si la contraseña cumple con los requisitos
-    public function verifyPassword(Request $request) {
+
+
+    /**
+     * Verify Password Request.
+     * 
+     * Esta ruta verifica que la contraseña cumple con las validaciones necesarias asi dando el "ok" para utilizarlo en Registration Request.
+     * @unauthenticated
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function verifyPassword(Request $request)
+    {
         $request->validate([
             'password' => 'required|min:8',
             'password_confirmation' => 'required'
@@ -127,8 +163,16 @@ class RegisterVerificationController extends Controller
         return response()->json(['message' => 'Contraseña válida']);
     }
 
-    // Verificar si el DNI es único
-    public function verifyIdentity(Request $request) {
+
+    /**
+     * Verify Identity Request.
+     * 
+     * Esta ruta verifica que la identidad del usuario mediante la API de renaper asi dando el "ok" para utilizarlo en Registration Request. FALTA TERMINARLA
+     * @unauthenticated
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function verifyIdentity(Request $request)
+    {
         $request->validate(['dni' => 'required|unique:users,dni']);
 
         return response()->json(['message' => 'Identidad verificada']);

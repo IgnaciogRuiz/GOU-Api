@@ -7,12 +7,16 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
+use Dedoc\Scramble\Attributes\Group;
 
+#[Group('Auth')]
 class PasswordResetLinkController extends Controller
 {
     /**
-     * Handle an incoming password reset link request.
+     * Password reset link Request.
      *
+     * Esta ruta solicita un link para restablecer la contraseña del usuario(mail)
+     * @unauthenticated
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): JsonResponse

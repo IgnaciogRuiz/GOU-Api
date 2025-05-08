@@ -14,31 +14,31 @@ class AllowsController extends Controller
 {
     public function index(Request $request)
     {
-        $allows = Allow::all();
+        $allows = Allows::all();
 
         return new AllowCollection($allows);
     }
 
     public function store(AllowStoreRequest $request)
     {
-        $allow = Allow::create($request->validated());
+        $allow = Allows::create($request->validated());
 
         return new AllowResource($allow);
     }
 
-    public function show(Request $request, Allow $allow)
+    public function show(Request $request, Allows $allow)
     {
         return new AllowResource($allow);
     }
 
-    public function update(AllowUpdateRequest $request, Allow $allow)
+    public function update(AllowUpdateRequest $request, Allows $allow)
     {
         $allow->update($request->validated());
 
         return new AllowResource($allow);
     }
 
-    public function destroy(Request $request, Allow $allow)
+    public function destroy(Request $request, Allows $allow)
     {
         $allow->delete();
 

@@ -10,19 +10,24 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Dedoc\Scramble\Attributes\Group;
 
+#[Group('Auth')]
 class RegisteredUserController extends Controller
 {
     /**
-     * Handle an incoming registration request.
-     *
+     * Registration Request.
+     * 
+     * Esta ruta se encarga de manejar las solicitudes de registro. Posterior a ellas existen las RegisterVerifications para ahorrar error en la request.
+     * @unauthenticated
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
-            'dni' => ['required', 'string', 'max:20', 'unique:'.User::class],
+            'dni' => ['required', 'string', 'max:20', 'unique:' . User::class],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'phone' => ['required', 'string', 'max:20'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'cvu' => ['nullable', 'string', 'max:50'],
@@ -45,6 +50,6 @@ class RegisteredUserController extends Controller
 
         return response()->json([
             'message' => 'Usuario creado'
-        ], 201); 
+        ], 201);
     }
 }
