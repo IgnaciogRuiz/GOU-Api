@@ -20,7 +20,7 @@ class VehicleUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer', 'exists:users.id,id'],
+            'user_id' => ['required', 'integer', 'exists:users,id'],
             'brand' => ['required', 'string', 'max:50'],
             'model' => ['required', 'string', 'max:50'],
             'year' => ['required', 'integer'],

@@ -20,8 +20,8 @@ class AllowStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tag_id' => ['required', 'integer', 'exists:tags.id,id'],
-            'trip_id' => ['required', 'integer', 'exists:trips.id,id'],
+            'tag_id' => ['required', 'integer', 'exists:tags,id'],
+            'trip_id' => ['required', 'integer', 'exists:trips,id'],
         ];
     }
 }

@@ -20,8 +20,8 @@ class ReservationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer', 'exists:users.id,id'],
-            'trip_id' => ['required', 'integer', 'exists:trips.id,id'],
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'trip_id' => ['required', 'integer', 'exists:trips,id'],
             'status' => ['required', 'in:pending,confirmed,canceled'],
             'reservation_date' => ['required'],
         ];

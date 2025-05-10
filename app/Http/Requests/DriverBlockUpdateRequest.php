@@ -20,7 +20,7 @@ class DriverBlockUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'driver_id' => ['required', 'integer', 'exists:users.id,id'],
+            'driver_id' => ['required', 'integer', 'exists:users,id'],
             'reason' => ['required', 'string'],
             'block_date' => ['required'],
             'status' => ['required', 'in:active,removed'],

@@ -20,8 +20,8 @@ class ChatUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user1_id' => ['required', 'integer', 'exists:users.id,id'],
-            'user2_id' => ['required', 'integer', 'exists:users.id,id'],
+            'user1_id' => ['required', 'integer', 'exists:users,id'],
+            'user2_id' => ['required', 'integer', 'exists:users,id'],
             'creation_date' => ['required'],
             'user_id' => ['required', 'integer', 'exists:users,id'],
         ];

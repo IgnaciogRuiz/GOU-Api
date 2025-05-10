@@ -20,7 +20,7 @@ class TripStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vehicle_id' => ['required', 'integer', 'exists:vehicles.id,id'],
+            'vehicle_id' => ['required', 'integer', 'exists:vehicles,id'],
             'origin' => ['required', 'string', 'max:255'],
             'destination' => ['required', 'string', 'max:255'],
             'date' => ['required'],

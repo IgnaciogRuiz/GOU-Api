@@ -33,7 +33,7 @@ return [
         'hide_try_it' => false,
         'hide_schemas' => false,
         'logo' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Z0vxjYvKxAHrfO8wFFOwroZt41hbenuqhg&s', // Podés agregar una URL si tenés logo
-        'try_it_credentials_policy' => 'include',
+        'try_it_credentials_policy' => 'omit',
         'layout' => 'responsive',
     ],
 
@@ -42,7 +42,7 @@ return [
     'enum_cases_description_strategy' => 'description',
 
     'middleware' => [
-        'web',
+        'api',
         RestrictedDocsAccess::class,
 
     ],

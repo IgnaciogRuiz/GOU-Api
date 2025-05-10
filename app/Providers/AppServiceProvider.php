@@ -29,16 +29,16 @@ class AppServiceProvider extends ServiceProvider
             return config('app.frontend_url') . "/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
 
-        Gate::define('viewApiDocs', function (User $user) {
-            // return in_array($user->email, ['admin@app.com']);
-            return true;
-        });
-
         Scramble::configure()
             ->withDocumentTransformers(function (OpenApi $openApi) {
                 $openApi->secure(
                     SecurityScheme::http('bearer')
                 );
             });
+
+        Gate::define('viewApiDocs', function (User $user) {
+            // return in_array($user->email, ['admin@app.com']);
+            return true;
+        });
     }
 }

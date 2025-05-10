@@ -21,7 +21,7 @@ class PaymentStoreRequest extends FormRequest
     {
         return [
             'transaction' => ['required', 'integer', 'unique:payments,transaction'],
-            'reservation_id' => ['required', 'integer', 'exists:reservations.id,id'],
+            'reservation_id' => ['required', 'integer', 'exists:reservations,id'],
             'amount' => ['required', 'numeric', 'between:-99999999.99,99999999.99'],
             'payment_method' => ['required', 'in:cash,mercadopago'],
             'payment_date' => ['required'],

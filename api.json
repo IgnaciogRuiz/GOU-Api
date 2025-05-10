@@ -216,13 +216,431 @@
                 }
             }
         },
+        "/auth/register/verify-email": {
+            "post": {
+                "operationId": "registerVerification.verifyEmail",
+                "description": "Esta ruta se encarga de verificar si el email ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo.",
+                "summary": "Verify Email Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "C\u00f3digo enviado al correo"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/auth/register/verify-phone": {
+            "post": {
+                "operationId": "registerVerification.verifyPhone",
+                "description": "Esta ruta se encarga de verificar si el telefono ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo. Falta terminar la funcion para que envie el sms",
+                "summary": "Verify Phone Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "phone": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "phone"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Enviar SMS con Twilio (todavia no funca)\n$twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));\n$twilio->messages->create($phone, [\n'from' => env('TWILIO_PHONE_NUMBER'),\n'body' => \"Tu c\u00f3digo de verificaci\u00f3n es: $phoneCode\"\n]);",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "C\u00f3digo enviado"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/auth/register/verify-email-token": {
+            "post": {
+                "operationId": "registerVerification.verifyEmailToken",
+                "description": "Esta ruta verifica que el token ingresado proviene del mail asi dando el \"ok\" para utilizarlo en Registration Request.",
+                "summary": "Verify Email Token Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "code"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Email verificado correctamente"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/auth/register/verify-phone-token": {
+            "post": {
+                "operationId": "registerVerification.verifyPhoneToken",
+                "description": "Esta ruta verifica que el token ingresado proviene del telefono asi dando el \"ok\" para utilizarlo en Registration Request.",
+                "summary": "Verify Phone Token Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "phone",
+                                    "code"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tel\u00e9fono verificado correctamente"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/auth/register/verify-identity": {
+            "post": {
+                "operationId": "registerVerification.verifyIdentity",
+                "description": "Esta ruta verifica que la identidad del usuario mediante la API de renaper asi dando el \"ok\" para utilizarlo en Registration Request. FALTA TERMINARLA",
+                "summary": "Verify Identity Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "dni": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "dni"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Identidad verificada"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/auth/register/verify-password": {
+            "post": {
+                "operationId": "registerVerification.verifyPassword",
+                "description": "Esta ruta verifica que la contrase\u00f1a cumple con las validaciones necesarias asi dando el \"ok\" para utilizarlo en Registration Request.",
+                "summary": "Verify Password Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 8
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "password",
+                                    "password_confirmation"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Contrase\u00f1a v\u00e1lida"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "operationId": "register",
+                "description": "Esta ruta se encarga de manejar las solicitudes de registro. Posterior a ellas existen las RegisterVerifications para ahorrar error en la request.",
+                "summary": "Registration Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "dni": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "cvu": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 50
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "dni",
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "password",
+                                    "password_confirmation"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Auth::login($user);",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario creado"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
         "/auth/login": {
             "post": {
                 "operationId": "login",
                 "description": "Handle an incoming authentication request. This Route does not requiere BearerToken.",
                 "summary": "Login Request",
                 "tags": [
-                    "AuthenticatedSession"
+                    "Auth"
                 ],
                 "requestBody": {
                     "required": true,
@@ -263,13 +681,130 @@
                 "security": []
             }
         },
+        "/auth/forgot-password": {
+            "post": {
+                "operationId": "password.email",
+                "description": "Esta ruta solicita un link para restablecer la contrase\u00f1a del usuario(mail)",
+                "summary": "Password reset link Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "status"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/auth/reset-password": {
+            "post": {
+                "operationId": "password.store",
+                "description": "Esta ruta se solicita a partir del password reset link request. solicita el token desde la url, el mail y la nueva contrase\u00f1a.",
+                "summary": "Reset Password Request",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "token": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "token",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "status"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
         "/auth/logout": {
             "post": {
                 "operationId": "logout",
                 "description": "Destroy an authenticated session.",
                 "summary": "Logout Request",
                 "tags": [
-                    "AuthenticatedSession"
+                    "Auth"
                 ],
                 "responses": {
                     "204": {
@@ -1081,123 +1616,6 @@
                 }
             }
         },
-        "/auth/reset-password": {
-            "post": {
-                "operationId": "password.store",
-                "description": "Esta ruta se solicita a partir del password reset link request. solicita el token desde la url, el mail y la nueva contrase\u00f1a.",
-                "summary": "Reset Password Request",
-                "tags": [
-                    "NewPassword"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "token": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "token",
-                                    "email",
-                                    "password",
-                                    "password_confirmation"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "status"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                }
-            }
-        },
-        "/auth/forgot-password": {
-            "post": {
-                "operationId": "password.email",
-                "description": "Esta ruta solicita un link para restablecer la contrase\u00f1a del usuario(mail)",
-                "summary": "Password reset link Request",
-                "tags": [
-                    "PasswordResetLink"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    }
-                                },
-                                "required": [
-                                    "email"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "status"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
         "/payments": {
             "get": {
                 "operationId": "payments.index",
@@ -1596,424 +2014,6 @@
                         "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
-            }
-        },
-        "/auth/register/verify-email": {
-            "post": {
-                "operationId": "registerVerification.verifyEmail",
-                "description": "Esta ruta se encarga de verificar si el email ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo.",
-                "summary": "Verify Email Request",
-                "tags": [
-                    "RegisterVerification"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    }
-                                },
-                                "required": [
-                                    "email"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "C\u00f3digo enviado al correo"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-phone": {
-            "post": {
-                "operationId": "registerVerification.verifyPhone",
-                "description": "Esta ruta se encarga de verificar si el telefono ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo. Falta terminar la funcion para que envie el sms",
-                "summary": "Verify Phone Request",
-                "tags": [
-                    "RegisterVerification"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "phone": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "phone"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Enviar SMS con Twilio (todavia no funca)\n$twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));\n$twilio->messages->create($phone, [\n'from' => env('TWILIO_PHONE_NUMBER'),\n'body' => \"Tu c\u00f3digo de verificaci\u00f3n es: $phoneCode\"\n]);",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "C\u00f3digo enviado"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-email-token": {
-            "post": {
-                "operationId": "registerVerification.verifyEmailToken",
-                "description": "Esta ruta verifica que el token ingresado proviene del mail asi dando el \"ok\" para utilizarlo en Registration Request.",
-                "summary": "Verify Email Token Request",
-                "tags": [
-                    "RegisterVerification"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    },
-                                    "code": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "email",
-                                    "code"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Email verificado correctamente"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-phone-token": {
-            "post": {
-                "operationId": "registerVerification.verifyPhoneToken",
-                "description": "Esta ruta verifica que el token ingresado proviene del telefono asi dando el \"ok\" para utilizarlo en Registration Request.",
-                "summary": "Verify Phone Token Request",
-                "tags": [
-                    "RegisterVerification"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "phone": {
-                                        "type": "string"
-                                    },
-                                    "code": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "phone",
-                                    "code"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Tel\u00e9fono verificado correctamente"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-identity": {
-            "post": {
-                "operationId": "registerVerification.verifyIdentity",
-                "description": "Esta ruta verifica que la identidad del usuario mediante la API de renaper asi dando el \"ok\" para utilizarlo en Registration Request. FALTA TERMINARLA",
-                "summary": "Verify Identity Request",
-                "tags": [
-                    "RegisterVerification"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "dni": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "dni"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Identidad verificada"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-password": {
-            "post": {
-                "operationId": "registerVerification.verifyPassword",
-                "description": "Esta ruta verifica que la contrase\u00f1a cumple con las validaciones necesarias asi dando el \"ok\" para utilizarlo en Registration Request.",
-                "summary": "Verify Password Request",
-                "tags": [
-                    "RegisterVerification"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "password": {
-                                        "type": "string",
-                                        "minLength": 8
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "password",
-                                    "password_confirmation"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Contrase\u00f1a v\u00e1lida"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register": {
-            "post": {
-                "operationId": "register",
-                "description": "Esta ruta se encarga de manejar las solicitudes de registro. Posterior a ellas existen las RegisterVerifications para ahorrar error en la request.",
-                "summary": "Registration Request",
-                "tags": [
-                    "RegisteredUser"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "dni": {
-                                        "type": "string",
-                                        "maxLength": 20
-                                    },
-                                    "name": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "maxLength": 255
-                                    },
-                                    "phone": {
-                                        "type": "string",
-                                        "maxLength": 20
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "cvu": {
-                                        "type": [
-                                            "string",
-                                            "null"
-                                        ],
-                                        "maxLength": 50
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "dni",
-                                    "name",
-                                    "email",
-                                    "phone",
-                                    "password",
-                                    "password_confirmation"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Auth::login($user);",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Usuario creado"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
             }
         },
         "/reservations": {
@@ -4481,7 +4481,7 @@
                         "maxLength": 10
                     },
                     "dnrpa_approved": {
-                        "type": "string"
+                        "type": "boolean"
                     }
                 },
                 "required": [
