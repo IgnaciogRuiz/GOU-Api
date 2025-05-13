@@ -11,6 +11,7 @@ use App\Models\Vehicle;
 use App\Models\Commission;
 use App\Models\Payment;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,30 +20,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         User::create([
             'dni' => 46767790,
             'firstname' => 'Ignacio',
-            'lastname' => 'Ruiz',    
+            'lastname' => 'Ruiz',
             'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'password' => bcrypt('password'),
             'validated' => fake()->boolean(),
             'cvu' => fake()->regexify('[0-9]{22}'),
             'pending_balance' => 0,
-        ]);   
+        ]);
 
         User::create([
             'dni' => 95934473,
             'firstname' => 'Marco',
-            'lastname' => 'Taliente',    
+            'lastname' => 'Taliente',
             'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'password' => bcrypt('password'),
             'validated' => fake()->boolean(),
             'cvu' => fake()->regexify('[0-9]{22}'),
             'pending_balance' => 0,
-        ]);  
-        
+        ]);
+
         $etiquetasPermitidas = [
             "comer",
             "fumar",
@@ -72,7 +74,7 @@ class DatabaseSeeder extends Seeder
                 $comision = Commission::orderBy('id', 'desc')->first(); //la commission de la empresa
                 $precio = $trip->price; //precio del viaje
                 $user = User::find($reserv->user_id); //el usuario que reservo
-        
+
                 // Creamos el pago
                 $payment = Payment::create([
                     'transaction' => fake()->regexify('[0-9]{10}'),
@@ -82,18 +84,18 @@ class DatabaseSeeder extends Seeder
                     'payment_date' => now(),
                     'status' => fake()->randomElement(["pending", "completed", "failed"]),
                 ]);
-        
+
                 // Si es efectivo, actualizamos el saldo pendiente del conductor
                 if ($payment->payment_method === "cash") {
                     $comision_value = $comision->value ?? 0.10; // por si no hay comisión en DB
                     $deuda = $precio * $comision_value;
-        
+
                     $driver->update([
                         'pending_balance' => $driver->pending_balance + $deuda,
                     ]);
-                } 
+                }
 
-                if (random_int(0,2)) {
+                if (random_int(0, 2)) {
                     Rating::create([
                         'trip_id' => $trip->id,
                         'user_id' => $user->id,
@@ -106,13 +108,11 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        
+
         $this->call([
             DriverBlockSeeder::class,
             ChatSeeder::class,
             MessageSeeder::class,
         ]);
-
     }
-   
 }

@@ -29,7 +29,7 @@ return [
 
     'ui' => [
         'title' => 'GOU RESTful API',
-        'theme' => 'light',
+        'theme' => 'dark',
         'hide_try_it' => false,
         'hide_schemas' => false,
         'logo' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Z0vxjYvKxAHrfO8wFFOwroZt41hbenuqhg&s', // Podés agregar una URL si tenés logo

@@ -15,7 +15,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Login Request
      * 
-     * Handle an incoming authentication request. This Route does not requiere BearerToken.
+     * Esta ruta maneja las peticiones entrantes de autenticacion. No requiere BearerToken
      * @unauthenticated
      */
     public function store(LoginRequest $request)
@@ -31,13 +31,16 @@ class AuthenticatedSessionController extends Controller
         // Generar un token nuevo con el nombre del dispositivo
         $token = $user->createToken($request->device_name)->plainTextToken;
 
-        return response()->json(['token' => $token]);
+        return response()->json([
+            'user_id' => $user->id,
+            'token' => $token,
+        ]);
     }
 
     /**
      * Logout Request
      * 
-     * Destroy an authenticated session.
+     * Destruye el BearerToken de la session.
      */
     public function destroy(Request $request)
     {

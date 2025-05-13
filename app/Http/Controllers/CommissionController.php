@@ -8,37 +8,50 @@ use App\Http\Resources\CommissionCollection;
 use App\Http\Resources\CommissionResource;
 use App\Models\Commission;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeRouteFromDocs;
 
 class CommissionController extends Controller
 {
-    public function index(Request $request): Response
+    /**
+     * Show Commission
+     * 
+     * Esta ruta nos trae la comision de la empresa.
+     */
+    public function index(Request $request)
     {
         $commissions = Commission::all();
 
         return new CommissionCollection($commissions);
     }
 
-    public function store(CommissionStoreRequest $request): Response
+    /**
+     * Create Commission
+     * 
+     * Esta ruta nos permite crear una nueva comission.
+     */
+    public function store(CommissionStoreRequest $request)
     {
         $commission = Commission::create($request->validated());
 
         return new CommissionResource($commission);
     }
 
-    public function show(Request $request, Commission $commission): Response
+    #[ExcludeRouteFromDocs]
+    public function show(Request $request, Commission $commission)
     {
         return new CommissionResource($commission);
     }
 
-    public function update(CommissionUpdateRequest $request, Commission $commission): Response
+    #[ExcludeRouteFromDocs]
+    public function update(CommissionUpdateRequest $request, Commission $commission)
     {
         $commission->update($request->validated());
 
         return new CommissionResource($commission);
     }
 
-    public function destroy(Request $request, Commission $commission): Response
+    #[ExcludeRouteFromDocs]
+    public function destroy(Request $request, Commission $commission)
     {
         $commission->delete();
 

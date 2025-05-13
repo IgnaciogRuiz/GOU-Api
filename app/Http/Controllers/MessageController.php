@@ -12,6 +12,11 @@ use Illuminate\Http\Response;
 
 class MessageController extends Controller
 {
+    /**
+     * Show All Message
+     * 
+     * Muestra Todos los mensajes de un usuario y chat especifico. 
+     */
     public function index(Request $request)
     {
         $messages = Message::all();
@@ -19,6 +24,11 @@ class MessageController extends Controller
         return new MessageCollection($messages);
     }
 
+    /**
+     * Create Message  
+     * 
+     * Crea un mensaje de un usuario y chat especifico. 
+     */
     public function store(MessageStoreRequest $request)
     {
         $message = Message::create($request->validated());
@@ -26,6 +36,12 @@ class MessageController extends Controller
         return new MessageResource($message);
     }
 
+    /**
+     * Show a Message 
+     * 
+     * Muestra un mensaje de un usuario y chat especifico.(no se va a utilizar). Usar 
+     * @deprecated 
+     */
     public function show(Request $request, Message $message)
     {
         return new MessageResource($message);
