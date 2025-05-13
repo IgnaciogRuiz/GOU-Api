@@ -12,6 +12,11 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
+     /**
+     * Show All Users
+     * 
+     * Muestra todos los usuarios
+     */
     public function index(Request $request)
     {
         $users = User::all();
@@ -19,6 +24,12 @@ class UserController extends Controller
         return new UserCollection($users);
     }
 
+    /**
+     * Create User
+     * 
+     * Crea un usuario. Usar Register Request
+     * @deprecated
+     */
     public function store(UserStoreRequest $request)
     {
         $user = User::create($request->validated());
@@ -26,11 +37,21 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    /**
+     * Show User
+     * 
+     * Muestra un usuario especifico.
+     */
     public function show(Request $request, User $user)
     {
         return new UserResource($user);
     }
 
+    /**
+     * Update User
+     * 
+     * Actualiza un usuario especifico.
+     */
     public function update(UserUpdateRequest $request, User $user)
     {
         $user->update($request->validated());
@@ -38,6 +59,11 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    /**
+     * Delete User
+     * 
+     * Elimina un usuario especifico.
+     */
     public function destroy(Request $request, User $user)
     {
         $user->delete();

@@ -47,6 +47,11 @@ class MessageController extends Controller
         return new MessageResource($message);
     }
 
+    /**
+     * Update Message  
+     * 
+     * actualiza un mensaje de un usuario y chat especifico. 
+     */
     public function update(MessageUpdateRequest $request, Message $message)
     {
         $message->update($request->validated());
@@ -54,6 +59,11 @@ class MessageController extends Controller
         return new MessageResource($message);
     }
 
+    /**
+     * Delete Message  
+     * 
+     * Elimina un mensaje de un usuario y chat especifico. 
+     */
     public function destroy(Request $request, Message $message)
     {
         $message->delete();

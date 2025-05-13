@@ -12,6 +12,11 @@ use Illuminate\Http\Response;
 
 class VehicleController extends Controller
 {
+    /**
+     * Show All Vehicles
+     * 
+     * Muestra todos los vehiculos.
+     */
     public function index(Request $request)
     {
         $vehicles = Vehicle::all();
@@ -19,6 +24,11 @@ class VehicleController extends Controller
         return new VehicleCollection($vehicles);
     }
 
+    /**
+     * Create Vehicle
+     * 
+     * Crea un vehiculo.
+     */
     public function store(VehicleStoreRequest $request)
     {
         $vehicle = Vehicle::create($request->validated());
@@ -26,11 +36,21 @@ class VehicleController extends Controller
         return new VehicleResource($vehicle);
     }
 
+    /**
+     * Show Vehicle
+     * 
+     * Muestra un vehiculo especifico.
+     */
     public function show(Request $request, Vehicle $vehicle)
     {
         return new VehicleResource($vehicle);
     }
 
+    /**
+     * Update Vehicle
+     * 
+     * Actualiza un vehiculo especifico.
+     */
     public function update(VehicleUpdateRequest $request, Vehicle $vehicle)
     {
         $vehicle->update($request->validated());
@@ -38,6 +58,11 @@ class VehicleController extends Controller
         return new VehicleResource($vehicle);
     }
 
+    /**
+     * Delete Vehicle
+     * 
+     * Elimina un vehiculo especifico.
+     */
     public function destroy(Request $request, Vehicle $vehicle)
     {
         $vehicle->delete();

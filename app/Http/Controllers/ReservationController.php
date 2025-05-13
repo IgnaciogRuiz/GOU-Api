@@ -12,6 +12,11 @@ use Illuminate\Http\Response;
 
 class ReservationController extends Controller
 {
+    /**
+     * Show All Reservations
+     * 
+     * Muestra todas las reservas de un usuario especifico
+     */
     public function index(Request $request)
     {
         $reservations = Reservation::all();
@@ -19,6 +24,11 @@ class ReservationController extends Controller
         return new ReservationCollection($reservations);
     }
 
+    /**
+     * Create Reservation
+     * 
+     * Crea una reserva de un viaje
+     */
     public function store(ReservationStoreRequest $request)
     {
         $reservation = Reservation::create($request->validated());
@@ -26,11 +36,21 @@ class ReservationController extends Controller
         return new ReservationResource($reservation);
     }
 
+    /**
+     * Show Reservation
+     * 
+     * Muestra una reserva especifica de un usuario especifico
+     */
     public function show(Request $request, Reservation $reservation)
     {
         return new ReservationResource($reservation);
     }
 
+    /**
+     * Update Reservation
+     * 
+     * Actualiza una reserva especifica
+     */
     public function update(ReservationUpdateRequest $request, Reservation $reservation)
     {
         $reservation->update($request->validated());
@@ -38,6 +58,11 @@ class ReservationController extends Controller
         return new ReservationResource($reservation);
     }
 
+    /**
+     * Delete Reservation
+     * 
+     * Elimina una Reservation
+     */
     public function destroy(Request $request, Reservation $reservation)
     {
         $reservation->delete();
