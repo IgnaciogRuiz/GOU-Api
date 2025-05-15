@@ -1,0 +1,138 @@
+
+type User {
+  id: ID!
+  dni: String!
+  firstname: String!
+  lastname: String!
+  email: String!
+  phone: String!
+  validated: Boolean!
+  cvu: String!
+  pending_balance: String!
+}
+
+type Vehicle {
+  id: ID!
+  user_id: ID!
+  brand: String!
+  model: String!
+  year: Int!
+  license_plate: String!
+  dnrpa_approved: Boolean!
+  user: User @belongsTo(relation: "user") @guard
+}
+
+type Trip {
+  id: ID!
+  origin: String!
+  destination: String!
+  date: String!
+  available_seats: Int!
+  price: Float!
+  user_id: ID!
+  user: User @belongsTo(relation: "user") @guard
+}
+
+type Reservation {
+  id: ID!
+  trip_id: ID!
+  user_id: ID!
+  status: String!
+  trip: Trip @belongsTo(relation: "trip") @guard
+  user: User @belongsTo(relation: "user") @guard
+}
+
+type Chat {
+  id: ID!
+  reservation_id: ID!
+  reservation: Reservation @belongsTo(relation: "reservation") @guard
+}
+
+type Message {
+  id: ID!
+  chat_id: ID!
+  sender_id: ID!
+  message: String!
+  chat: Chat @belongsTo(relation: "chat") @guard
+  sender: User @belongsTo(relation: "sender") @guard
+}
+
+type Allow {
+  id: ID!
+  tag_id: ID!
+  trip_id: ID!
+  trip: Trip @belongsTo(relation: "trip") @guard
+}
+
+type Commission {
+  id: ID!
+  amount: Float!
+  user_id: ID!
+  user: User @belongsTo(relation: "user") @guard
+}
+
+type Payment {
+  id: ID!
+  user_id: ID!
+  amount: Float!
+  user: User @belongsTo(relation: "user") @guard
+}
+
+type Transaction {
+  id: ID!
+  user_id: ID!
+  type: String!
+  amount: Float!
+  user: User @belongsTo(relation: "user") @guard
+}
+
+type Tag {
+  id: ID!
+  name: String!
+}
+
+type DriverBlock {
+  id: ID!
+  blocked_id: ID!
+  blocker_id: ID!
+  blocked: User @belongsTo(relation: "blocked") @guard
+  blocker: User @belongsTo(relation: "blocker") @guard
+}
+
+type Query {
+  users: [User!]! @guard
+  user(id: ID!): User @find(model: "App\Models\User") @guard
+
+  vehicles: [Vehicle!]! @guard
+  vehicle(id: ID!): Vehicle @find(model: "App\Models\Vehicle") @guard
+
+  trips: [Trip!]! @guard
+  trip(id: ID!): Trip @find(model: "App\Models\Trip") @guard
+
+  reservations: [Reservation!]! @guard
+  reservation(id: ID!): Reservation @find(model: "App\Models\Reservation") @guard
+
+  chats: [Chat!]! @guard
+  chat(id: ID!): Chat @find(model: "App\Models\Chat") @guard
+
+  messages: [Message!]! @guard
+  message(id: ID!): Message @find(model: "App\Models\Message") @guard
+
+  allows: [Allow!]! @guard
+  allow(id: ID!): Allow @find(model: "App\Models\Allow") @guard
+
+  commissions: [Commission!]! @guard
+  commission(id: ID!): Commission @find(model: "App\Models\Commission") @guard
+
+  payments: [Payment!]! @guard
+  payment(id: ID!): Payment @find(model: "App\Models\Payment") @guard
+
+  transactions: [Transaction!]! @guard
+  transaction(id: ID!): Transaction @find(model: "App\Models\Transaction") @guard
+
+  tags: [Tag!]! @guard
+  tag(id: ID!): Tag @find(model: "App\Models\Tag") @guard
+
+  driverBlocks: [DriverBlock!]! @guard
+  driverBlock(id: ID!): DriverBlock @find(model: "App\Models\DriverBlock") @guard
+}

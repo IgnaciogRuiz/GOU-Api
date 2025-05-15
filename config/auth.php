@@ -36,10 +36,6 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'sanctum',
-            'provider' => 'users',
-        ],
 
         'api' => [
             'driver' => 'sanctum',  // Cambiar a sanctum
