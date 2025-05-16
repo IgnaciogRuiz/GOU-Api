@@ -9,11 +9,12 @@ Esta API está diseñada con **GraphQL** sobre REST para brindar flexibilidad en
 ## Características principales
 
 -   **GraphQL**: consultas flexibles que permiten pedir exactamente los datos necesarios.
--   **Autenticación y autorización** mediante middleware (`@guard`).
+-   **Rest**: consultas a endpoint definidos.
+-   **Autenticación y autorización** mediante middleware Sanctum .
 -   Manejo de usuarios, vehículos, viajes, reservas, calificaciones y más.
 -   Relaciones entre modelos con resolvers automáticos (`@hasMany`, `@belongsTo`, `@belongsToMany`).
 -   Validación y autorización integradas para proteger los endpoints.
--   Inputs para mutaciones que simplifican la creación y actualización de datos.
+-   Inputs para mutaciones que simplifican la creación y actualización de datos en graphQL.
 
 ---
 
@@ -23,7 +24,9 @@ Esta API está diseñada con **GraphQL** sobre REST para brindar flexibilidad en
 -   **Nuwave Lighthouse** para GraphQL en Laravel
 -   **MySQL** como base de datos
 -   **GraphQL** para la comunicación entre cliente y servidor
--   Autenticación con JWT o sistema personalizado (según implementación)
+-   **Sanctum** para la autenticacion por API Tokens
+-   **Blueprint** para la creacion de modelos controladores y migraciones
+-   **Scramble** para generae la documentacion del REST
 
 ---
 
