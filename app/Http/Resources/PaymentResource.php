@@ -18,7 +18,6 @@ class PaymentResource extends JsonResource
             'reservation_id' => $this->reservation_id,
             'amount' => $this->amount,
             'payment_method' => $this->payment_method,
-            'payment_date' => $this->payment_date,
             'status' => $this->status,
             'reservation' => ReservationResource::make($this->whenLoaded('reservation')),
             'transaction' => TransactionResource::make($this->whenLoaded('transaction')),

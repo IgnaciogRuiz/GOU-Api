@@ -21,7 +21,6 @@ class Rating extends Model
         'driver_id',
         'rating',
         'comment',
-        'rating_date',
     ];
 
     /**
@@ -34,7 +33,6 @@ class Rating extends Model
         'trip_id' => 'integer',
         'user_id' => 'integer',
         'driver_id' => 'integer',
-        'rating_date' => 'datetime',
     ];
 
     public function trip(): BelongsTo

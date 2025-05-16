@@ -17,7 +17,6 @@ class DriverBlock extends Model
      */
     protected $fillable = [
         'reason',
-        'block_date',
         'status',
         'user_id',
     ];
@@ -29,7 +28,6 @@ class DriverBlock extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'block_date' => 'datetime',
         'user_id' => 'integer',
     ];
 

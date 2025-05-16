@@ -1,0 +1,39 @@
+type Vehicle @guard {
+    id: ID!
+    user_id: ID!
+    brand: String!
+    model: String!
+    year: Int!
+    license_plate: String!
+    dnrpa_approved: Boolean!
+    user: User @belongsTo
+    trips: [Trip!]! @hasMany
+}
+
+type Query @guard {
+    # VEHICLES
+    vehicles: [Vehicle!]! @all(model: "Vehicle")
+    vehicle(id: ID @eq): Vehicle @find(model: "Vehicle")
+}
+
+type Mutation @guard {
+    #Vehicles
+    createVehicle(
+        user_id: ID!
+        brand: String!
+        model: String!
+        year: Int!
+        license_plate: String!
+        dnrpa_approved: Boolean!
+    ): Vehicle! @create
+
+    updateVehicle(
+        id: ID!
+        brand: String
+        model: String
+        year: Int
+        license_plate: String
+    ): Vehicle! @update
+
+    deleteVehicle(id: ID! @eq): Boolean! @delete(model: Vehicle)
+}

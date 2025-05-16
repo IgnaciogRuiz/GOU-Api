@@ -24,7 +24,6 @@ class ChatFactory extends Factory
         return [
             'user1_id' => User::factory(),
             'user2_id' => User::factory(),
-            'creation_date' => fake()->dateTime(),
             'user_id' => User::factory(),
         ];
     }

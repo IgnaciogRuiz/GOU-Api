@@ -29,9 +29,8 @@ class TransactionFactory extends Factory
             'total_amount' => fake()->randomFloat(2, 0, 99999.99),
             'company_commission' => fake()->randomFloat(2, 0, 99999.99),
             'driver_final_amount' => fake()->randomFloat(2, 0, 99999.99),
-            'transaction_date' => fake()->dateTime(),
-            'status' => fake()->randomElement(["pending","processed","failed"]),
+            'status' => fake()->randomElement(["pending", "processed", "failed"]),
             'user_id' => User::factory(),
         ];
-    } 
+    }
 }

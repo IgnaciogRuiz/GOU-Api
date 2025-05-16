@@ -21,7 +21,6 @@ class Payment extends Model
         'reservation_id',
         'amount',
         'payment_method',
-        'payment_date',
         'status',
     ];
 
@@ -34,16 +33,10 @@ class Payment extends Model
         'id' => 'integer',
         'reservation_id' => 'integer',
         'amount' => 'decimal:2',
-        'payment_date' => 'datetime',
     ];
 
     public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
-    }
-
-    public function transaction(): HasOne
-    {
-        return $this->hasOne(Transaction::class);
     }
 }

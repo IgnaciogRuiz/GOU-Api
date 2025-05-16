@@ -16,8 +16,7 @@ class ChatResource extends JsonResource
             'id' => $this->id,
             'user1_id' => $this->user1_id,
             'user2_id' => $this->user2_id,
-            'creation_date' => $this->creation_date,
-            'user_id' => $this->user_id,
+
             'messages' => MessageCollection::make($this->whenLoaded('messages')),
         ];
     }

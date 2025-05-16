@@ -81,7 +81,6 @@ class DatabaseSeeder extends Seeder
                     'reservation_id' => $reserv->id,
                     'amount' => $precio,
                     'payment_method' => fake()->randomElement(["cash", "mercadopago"]),
-                    'payment_date' => now(),
                     'status' => fake()->randomElement(["pending", "completed", "failed"]),
                 ]);
 
@@ -102,7 +101,6 @@ class DatabaseSeeder extends Seeder
                         'driver_id' => $driver->id,
                         'rating' => fake()->numberBetween(0, 10),
                         'comment' => fake()->realText(100, 1),
-                        'rating_date' => fake()->dateTime(),
                     ]);
                 }
             }

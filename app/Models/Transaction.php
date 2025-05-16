@@ -17,11 +17,8 @@ class Transaction extends Model
      */
     protected $fillable = [
         'transaction',
-        'payment_id',
-        'driver_id',
         'total_amount',
         'company_final_amount',
-        'transaction_date',
         'status',
         'user_id',
     ];
@@ -33,26 +30,14 @@ class Transaction extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'payment_id' => 'integer',
-        'driver_id' => 'integer',
         'total_amount' => 'decimal:2',
         'company_commission' => 'decimal:2',
         'driver_final_amount' => 'decimal:2',
-        'transaction_date' => 'datetime',
         'user_id' => 'integer',
     ];
 
-    public function payment(): BelongsTo
-    {
-        return $this->belongsTo(Payment::class);
-    }
 
     public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function driver(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

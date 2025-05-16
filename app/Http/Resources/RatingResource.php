@@ -19,7 +19,6 @@ class RatingResource extends JsonResource
             'driver_id' => $this->driver_id,
             'rating' => $this->rating,
             'comment' => $this->comment,
-            'rating_date' => $this->rating_date,
         ];
     }
 }

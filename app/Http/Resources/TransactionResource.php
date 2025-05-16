@@ -19,7 +19,6 @@ class TransactionResource extends JsonResource
             'driver_id' => $this->driver_id,
             'total_amount' => $this->total_amount,
             'company_final_amount' => $this->company_final_amount,
-            'transaction_date' => $this->transaction_date,
             'status' => $this->status,
             'user_id' => $this->user_id,
         ];

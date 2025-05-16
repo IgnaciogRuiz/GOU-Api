@@ -28,7 +28,6 @@ class RatingFactory extends Factory
             'driver_id' => User::factory(),
             'rating' => fake()->numberBetween(0, 10),
             'comment' => fake()->realText(100, 1),
-            'rating_date' => fake()->dateTime(),
         ];
     }
 }

@@ -17,7 +17,6 @@ class ReservationResource extends JsonResource
             'user_id' => $this->user_id,
             'trip_id' => $this->trip_id,
             'status' => $this->status,
-            'reservation_date' => $this->reservation_date,
             'trip' => TripResource::make($this->whenLoaded('trip')),
             'payment' => PaymentResource::make($this->whenLoaded('payment')),
         ];

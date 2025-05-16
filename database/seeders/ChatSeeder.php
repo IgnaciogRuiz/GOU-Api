@@ -22,8 +22,6 @@ class ChatSeeder extends Seeder
             Chat::create([
                 'user1_id' => $user1,
                 'user2_id' => $user2,
-                'creation_date' => now(),
-                'user_id' => $user1, // o uno de los dos, depende del modelo
             ]);
         }
     }

@@ -25,9 +25,8 @@ class PaymentFactory extends Factory
             'transaction' => fake()->regexify('[0-9]{20}'),
             'reservation_id' => Reservation::factory(),
             'amount' => fake()->randomFloat(2, 0, 99999.99),
-            'payment_method' => fake()->randomElement(["cash","mercadopago"]),
-            'payment_date' => fake()->dateTime(),
-            'status' => fake()->randomElement(["pending","completed","failed"]),
+            'payment_method' => fake()->randomElement(["cash", "mercadopago"]),
+            'status' => fake()->randomElement(["pending", "completed", "failed"]),
         ];
     }
 }

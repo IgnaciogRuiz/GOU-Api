@@ -1,0 +1,18 @@
+type Tag @guard {
+    id: ID!
+    name: String!
+    trips: [Trip!]! @belongsToMany(relation: "trips")
+}
+
+type Query @guard {
+    # TAGS
+    tags: [Tag!]! @all(model: "Tag")
+    tag(id: ID @eq): Tag @find(model: "Tag")
+}
+
+type Mutation @guard {
+    #tag
+    createTag(name: String!): Tag! @create
+    updateTag(id: ID!, name: String): Tag! @update
+    deleteTag(id: ID! @eq): Boolean! @delete(model: Tag)
+}

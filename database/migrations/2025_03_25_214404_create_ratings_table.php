@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('driver_id')->constrained('users');
             $table->integer('rating');
             $table->text('comment');
-            $table->dateTime('rating_date');
             $table->timestamps();
         });
 

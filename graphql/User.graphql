@@ -1,0 +1,24 @@
+type User @guard {
+    id: ID!
+    dni: String!
+    firstname: String!
+    lastname: String!
+    email: String!
+    phone: String!
+    validated: Boolean!
+    cvu: String!
+    pending_balance: String!
+    vehicles: [Vehicle!]! @hasMany
+    reservations: [Reservation!]! @hasMany
+    transactions: [Transaction!]! @hasMany
+    chats: [Chat!]! @hasMany
+    messages: [Message!]! @hasMany
+    ratings: [Rating!]! @hasMany
+    driverBlocks: [DriverBlock!]! @hasMany
+}
+
+type Query @guard {
+    # USER
+    users: [User!]! @all(model: "User")
+    user(id: ID @eq): User @find(model: "User")
+}

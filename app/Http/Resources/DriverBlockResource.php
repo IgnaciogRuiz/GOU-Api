@@ -15,7 +15,6 @@ class DriverBlockResource extends JsonResource
         return [
             'id' => $this->id,
             'reason' => $this->reason,
-            'block_date' => $this->block_date,
             'status' => $this->status,
             'user_id' => $this->user_id,
         ];

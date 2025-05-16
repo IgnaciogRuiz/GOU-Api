@@ -1,0 +1,35 @@
+enum TransactionStatus {
+    pending
+    processed
+    failed
+}
+
+type Transaction @guard {
+    id: ID!
+    transaction: Int!
+    amount: Float!
+    company_final_amount: Float!
+    status: TransactionStatus!
+    user_id: User @belongsTo(relation: "user")
+}
+
+type Query @guard {
+    # TRANSACTIONS
+    transactions: [Transaction!]! @all(model: "Transaction")
+    transaction(id: ID @eq): Transaction @find(model: "Transaction")
+}
+
+type Mutation @guard {
+    #Transaction
+    createTransaction(
+        transaction: Int!
+        amount: Float!
+        company_final_amount: Float!
+        status: TransactionStatus!
+        user_id: ID!
+    ): Transaction! @create
+
+    updateTransaction(id: ID!, status: TransactionStatus): Transaction! @update
+
+    deleteTransaction(id: ID! @eq): Boolean! @delete(model: Transaction)
+}

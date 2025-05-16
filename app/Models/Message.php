@@ -19,7 +19,6 @@ class Message extends Model
         'chat_id',
         'sender_id',
         'message',
-        'sent_date',
         'status',
         'user_id',
     ];
@@ -33,18 +32,11 @@ class Message extends Model
         'id' => 'integer',
         'chat_id' => 'integer',
         'sender_id' => 'integer',
-        'sent_date' => 'datetime',
-        'user_id' => 'integer',
     ];
 
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function sender(): BelongsTo

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 return [
     /*
@@ -61,9 +63,8 @@ return [
     |
     */
 
-    'guards' => [
-        'api' => 'api',
-    ],
+    'guard' => 'api',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -197,6 +198,7 @@ return [
         'scalars' => 'App\\GraphQL\\Scalars',
         'directives' => 'App\\GraphQL\\Directives',
         'validators' => 'App\\GraphQL\\Validators',
+        'resolver' => 'App\\GraphQL\\Mutations',
     ],
 
     /*

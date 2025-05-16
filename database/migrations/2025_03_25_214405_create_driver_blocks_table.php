@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->text('reason');
-            $table->dateTime('block_date');
-            $table->enum('status', ["active","removed"]);
+            $table->enum('status', ["active", "removed"]);
             $table->timestamps();
         });
 

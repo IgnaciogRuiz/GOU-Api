@@ -37,7 +37,7 @@ class MessageController extends Controller
     }
 
     /**
-     * Show a Message 
+     * Show Message 
      * 
      * Muestra un mensaje de un usuario y chat especifico.(no se va a utilizar). Usar 
      * @deprecated 
@@ -50,7 +50,7 @@ class MessageController extends Controller
     /**
      * Update Message  
      * 
-     * actualiza un mensaje de un usuario y chat especifico. 
+     * Actualiza un mensaje de un usuario y chat especifico. 
      */
     public function update(MessageUpdateRequest $request, Message $message)
     {
@@ -59,11 +59,6 @@ class MessageController extends Controller
         return new MessageResource($message);
     }
 
-    /**
-     * Delete Message  
-     * 
-     * Elimina un mensaje de un usuario y chat especifico. 
-     */
     public function destroy(Request $request, Message $message)
     {
         $message->delete();

@@ -22,12 +22,9 @@ class MessageSeeder extends Seeder
                     'chat_id' => $chat->id,
                     'sender_id' => $senderId,
                     'message' => fake()->sentence(),
-                    'sent_date' => now()->subMinutes(rand(1, 1000)),
                     'status' => fake()->randomElement(["sent", "read"]),
-                    'user_id' => $senderId, // si el modelo lo requiere
                 ]);
             }
         }
     }
 }
-

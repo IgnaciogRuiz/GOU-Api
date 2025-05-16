@@ -1,0 +1,64 @@
+type Trip @guard {
+    id: ID!
+    origin: String!
+    destination: String!
+    date: String!
+    available_seats: Int!
+    price: Float!
+    vehicle: Vehicle @belongsTo
+    reservations: [Reservation!]! @hasMany
+    ratings: [Rating!]! @hasMany
+    tags: [Tag!]! @belongsToMany(relation: "tags")
+}
+
+#inputs
+input CreateTripInput {
+    origin: String!
+    destination: String!
+    date: String!
+    available_seats: Int!
+    price: Float!
+    vehicle_id: ID!
+    tagIds: [ID!]
+}
+
+input UpdateTripInput {
+    id: ID!
+    origin: String
+    destination: String
+    date: String
+    available_seats: Int
+    price: Float
+    vehicle_id: ID
+    tagIds: [ID!]
+}
+
+type Query @guard {
+    # TRIPS
+    trips: [Trip!]! @all(model: "Trip")
+    trip(id: ID @eq): Trip @find(model: "Trip")
+}
+
+type Mutation @guard {
+    #Actualizar User
+    updateUser(
+        id: ID!
+        dni: String
+        firstname: String
+        lastname: String
+        email: String
+        phone: String
+        validated: Boolean
+        cvu: String
+        pending_balance: String
+    ): User @update
+
+    #Trips
+    createTrip(input: CreateTripInput!): Trip
+        @field(resolver: "TripResolver@createTrip")
+
+    updateTrip(input: UpdateTripInput!): Trip
+        @field(resolver: "TripResolver@updateTrip")
+
+    deleteTrip(id: ID!): Boolean @field(resolver: "TripResolver@deleteTrip")
+}

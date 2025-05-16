@@ -20,7 +20,6 @@ class Reservation extends Model
         'user_id',
         'trip_id',
         'status',
-        'reservation_date',
     ];
 
     /**
@@ -32,7 +31,6 @@ class Reservation extends Model
         'id' => 'integer',
         'user_id' => 'integer',
         'trip_id' => 'integer',
-        'reservation_date' => 'datetime',
     ];
 
     public function user(): BelongsTo

@@ -11,6 +11,7 @@ class Chat extends Model
 {
     use HasFactory;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,8 +20,6 @@ class Chat extends Model
     protected $fillable = [
         'user1_id',
         'user2_id',
-        'creation_date',
-        'user_id',
     ];
 
     /**
@@ -32,8 +31,6 @@ class Chat extends Model
         'id' => 'integer',
         'user1_id' => 'integer',
         'user2_id' => 'integer',
-        'creation_date' => 'datetime',
-        'user_id' => 'integer',
     ];
 
     public function messages(): HasMany

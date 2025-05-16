@@ -21,7 +21,6 @@ class DriverBlockStoreRequest extends FormRequest
     {
         return [
             'reason' => ['required', 'string'],
-            'block_date' => ['required'],
             'status' => ['required', 'in:active,removed'],
             'user_id' => ['required', 'integer', 'exists:users,id'],
         ];

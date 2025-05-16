@@ -26,8 +26,7 @@ class MessageFactory extends Factory
             'chat_id' => Chat::factory(),
             'sender_id' => User::factory(),
             'message' => fake()->text(),
-            'sent_date' => fake()->dateTime(),
-            'status' => fake()->randomElement(["sent","read"]),
+            'status' => fake()->randomElement(["sent", "read"]),
             'user_id' => User::factory(),
         ];
     }

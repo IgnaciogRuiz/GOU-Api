@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user1_id')->constrained('users');
             $table->foreignId('user2_id')->constrained('users');
-            $table->dateTime('creation_date');
-            $table->foreignId('user_id');
             $table->timestamps();
         });
 

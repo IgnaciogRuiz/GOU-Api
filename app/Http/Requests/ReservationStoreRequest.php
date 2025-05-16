@@ -23,7 +23,6 @@ class ReservationStoreRequest extends FormRequest
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'trip_id' => ['required', 'integer', 'exists:trips,id'],
             'status' => ['required', 'in:pending,confirmed,canceled'],
-            'reservation_date' => ['required'],
         ];
     }
 }

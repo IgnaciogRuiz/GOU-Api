@@ -27,29 +27,28 @@ class ReservationFactory extends Factory
     {
         //creamos un usuario (el que va a viajar)
         $usuario = User::factory()->create();
-        
+
         //Creamos un viaje
         $trip = Trip::factory()->create();
 
-        $cant_etiquetas = random_int(0,9);
+        $cant_etiquetas = random_int(0, 9);
         $allows = [];
-        for ($i=1; $i<$cant_etiquetas; $i++) {
-            $fakeid = random_int(1,10);
-            if ( !in_array($fakeid, $allows)) {
-               array_push($allows, $fakeid);  
+        for ($i = 1; $i < $cant_etiquetas; $i++) {
+            $fakeid = random_int(1, 10);
+            if (!in_array($fakeid, $allows)) {
+                array_push($allows, $fakeid);
             }
         }
-        
+
         $trip->tags()->sync($allows);
 
-        $estado=["pending","in_progress","completed","canceled"];
-        $status=random_int(0,3);
+        $estado = ["pending", "in_progress", "completed", "canceled"];
+        $status = random_int(0, 3);
 
         return [
             'user_id' => $usuario,
             'trip_id' => $trip,
             'status' => $estado[$status],
-            'reservation_date' => fake()->dateTime(),
         ];
     }
 }

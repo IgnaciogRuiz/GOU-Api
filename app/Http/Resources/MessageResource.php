@@ -17,9 +17,7 @@ class MessageResource extends JsonResource
             'chat_id' => $this->chat_id,
             'sender_id' => $this->sender_id,
             'message' => $this->message,
-            'sent_date' => $this->sent_date,
             'status' => $this->status,
-            'user_id' => $this->user_id,
         ];
     }
 }
