@@ -1,0 +1,14 @@
+enum ReservationStatus {
+    pending
+    in_progress
+    completed
+    canceled
+}
+
+type Reservation @guard {
+    id: ID!
+    status: ReservationStatus!
+    trip: Trip @belongsTo
+    user: User @belongsTo
+    payment: Payment @hasOne
+}

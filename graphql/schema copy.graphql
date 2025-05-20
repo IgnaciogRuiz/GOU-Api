@@ -1,4 +1,176 @@
-#import schemas/*.graphql
+type Allow @guard {
+    id: ID!
+}
+
+type Chat @guard {
+    id: ID!
+    user1: User @belongsTo(relation: "user1")
+    user2: User @belongsTo(relation: "user2")
+    messages: [Message!]! @hasMany
+}
+
+enum BlockStatus {
+    active
+    removed
+}
+
+type DriverBlock @guard {
+    id: ID!
+    reason: String!
+    status: BlockStatus!
+    user: User @belongsTo(relation: "user")
+}
+
+
+enum MessageStatus {
+    sent
+    read
+}
+
+type Message @guard {
+    id: ID!
+    chat: Chat @belongsTo(relation: "chat")
+    sender: User @belongsTo(relation: "sender")
+    message: String!
+    status: MessageStatus!
+}
+
+
+enum PaymentStatus {
+    pending
+    completed
+    failed
+}
+
+enum PaymentMethod {
+    cash
+    mercadopago
+}
+
+type Payment @guard {
+    id: ID!
+    transaction: Int!
+    amount: Float!
+    payment_method: PaymentMethod!
+    status: PaymentStatus!
+    reservation: Reservation @belongsTo(relation: "reservation")
+}
+
+
+type Rating @guard {
+    id: ID!
+    rating: Int!
+    comment: String!
+    trip: Trip @belongsTo
+    user: User @belongsTo
+    driver: User @belongsTo(relation: driver)
+}
+
+
+enum ReservationStatus {
+    pending
+    in_progress
+    completed
+    canceled
+}
+
+type Reservation @guard {
+    id: ID!
+    status: ReservationStatus!
+    trip: Trip @belongsTo
+    user: User @belongsTo
+    payment: Payment @hasOne
+}
+
+
+type Tag @guard {
+    id: ID!
+    name: String!
+    trips: [Trip!]! @belongsToMany(relation: "trips")
+}
+
+
+enum TransactionStatus {
+    pending
+    processed
+    failed
+}
+
+type Transaction @guard {
+    id: ID!
+    transaction: Int!
+    amount: Float!
+    company_final_amount: Float!
+    status: TransactionStatus!
+    user_id: User @belongsTo(relation: "user")
+}
+
+type Trip @guard {
+    id: ID!
+    origin: String!
+    destination: String!
+    date: String!
+    available_seats: Int!
+    price: Float!
+    vehicle: Vehicle @belongsTo
+    reservations: [Reservation!]! @hasMany
+    ratings: [Rating!]! @hasMany
+    tags: [Tag!]! @belongsToMany(relation: "tags")
+}
+
+#inputs
+input CreateTripInput {
+    origin: String!
+    destination: String!
+    date: String!
+    available_seats: Int!
+    price: Float!
+    vehicle_id: ID!
+    tagIds: [ID!]
+}
+
+input UpdateTripInput {
+    id: ID!
+    origin: String
+    destination: String
+    date: String
+    available_seats: Int
+    price: Float
+    vehicle_id: ID
+    tagIds: [ID!]
+}
+
+type User @guard {
+    id: ID!
+    dni: String!
+    firstname: String!
+    lastname: String!
+    email: String!
+    phone: String!
+    validated: Boolean!
+    cvu: String!
+    pending_balance: String!
+    vehicles: [Vehicle!]! @hasMany
+    reservations: [Reservation!]! @hasMany
+    transactions: [Transaction!]! @hasMany
+    chats: [Chat!]! @hasMany
+    messages: [Message!]! @hasMany
+    ratings: [Rating!]! @hasMany
+    driverBlocks: [DriverBlock!]! @hasMany
+}
+
+
+type Vehicle @guard {
+    id: ID!
+    user_id: ID!
+    brand: String!
+    model: String!
+    year: Int!
+    license_plate: String!
+    dnrpa_approved: Boolean!
+    user: User @belongsTo
+    trips: [Trip!]! @hasMany
+}
 
 type Mutation @guard {
     #Chats

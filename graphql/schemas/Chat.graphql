@@ -1,0 +1,6 @@
+type Chat @guard {
+    id: ID!
+    user1: User @belongsTo(relation: "user1")
+    user2: User @belongsTo(relation: "user2")
+    messages: [Message!]! @hasMany
+}

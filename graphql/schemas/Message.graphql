@@ -1,0 +1,12 @@
+enum MessageStatus {
+    sent
+    read
+}
+
+type Message @guard {
+    id: ID!
+    chat: Chat @belongsTo(relation: "chat")
+    sender: User @belongsTo(relation: "sender")
+    message: String!
+    status: MessageStatus!
+}

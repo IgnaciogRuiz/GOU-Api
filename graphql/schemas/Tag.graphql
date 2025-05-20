@@ -1,0 +1,6 @@
+type Tag @guard {
+    id: ID!
+    name: String!
+    trips: [Trip!]! @belongsToMany(relation: "trips")
+}
+

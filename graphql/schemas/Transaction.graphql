@@ -1,0 +1,15 @@
+enum TransactionStatus {
+    pending
+    processed
+    failed
+}
+
+type Transaction @guard {
+    id: ID!
+    transaction: Int!
+    amount: Float!
+    company_final_amount: Float!
+    status: TransactionStatus!
+    user_id: User @belongsTo(relation: "user")
+}
+

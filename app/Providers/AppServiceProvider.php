@@ -9,6 +9,7 @@ use Dedoc\Scramble\Scramble;
 use Dedoc\Scramble\Support\Generator\OpenApi;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
                     SecurityScheme::http('bearer')
                 );
             });
+    
 
         // Gate::define('viewApiDocs', function () {
         //     return env('MOSTRAR_DOCS_EN_PROD', false); // default false si no está seteado

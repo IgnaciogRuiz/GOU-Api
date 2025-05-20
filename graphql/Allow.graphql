@@ -1,9 +1,0 @@
-type Allow @guard {
-    id: ID!
-}
-
-type Query @guard {
-    # ALLOWS (pivot de tags <-> trips)
-    allows: [Allow!]! @all(model: "Allow")
-    allow(id: ID @eq): Allow @find(model: "Allow")
-}

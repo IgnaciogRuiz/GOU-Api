@@ -1,0 +1,19 @@
+enum PaymentStatus {
+    pending
+    completed
+    failed
+}
+
+enum PaymentMethod {
+    cash
+    mercadopago
+}
+
+type Payment @guard {
+    id: ID!
+    transaction: Int!
+    amount: Float!
+    payment_method: PaymentMethod!
+    status: PaymentStatus!
+    reservation: Reservation @belongsTo(relation: "reservation")
+}

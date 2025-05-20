@@ -1,0 +1,9 @@
+type Rating @guard {
+    id: ID!
+    rating: Int!
+    comment: String!
+    trip: Trip @belongsTo
+    user: User @belongsTo
+    driver: User @belongsTo(relation: driver)
+}
+

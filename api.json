@@ -19,6 +19,8 @@
         "/allows": {
             "get": {
                 "operationId": "allows.index",
+                "description": "Esta ruta nos permite traer todos los elementos de la tabla itermedia Allow.",
+                "summary": "Show All Allows",
                 "tags": [
                     "Allows"
                 ],
@@ -40,6 +42,8 @@
             },
             "post": {
                 "operationId": "allows.store",
+                "description": "Esta ruta nos permite crear una relacion entre una \"Tag\" y un \"trip\".",
+                "summary": "Create Allow",
                 "tags": [
                     "Allows"
                 ],
@@ -87,6 +91,8 @@
         "/allows/{allow}": {
             "get": {
                 "operationId": "allows.show",
+                "description": "Esta ruta nos permite ver 1 fila especifica de la tabla.",
+                "summary": "Show Allow",
                 "tags": [
                     "Allows"
                 ],
@@ -130,6 +136,8 @@
             },
             "put": {
                 "operationId": "allows.update",
+                "description": "Esta ruta nos permite actualizar una fila de la tabla.",
+                "summary": "Update Allow",
                 "tags": [
                     "Allows"
                 ],
@@ -189,6 +197,8 @@
             },
             "delete": {
                 "operationId": "allows.destroy",
+                "description": "Esta ruta destruye una fila de la tabla.",
+                "summary": "Delete Allow",
                 "tags": [
                     "Allows"
                 ],
@@ -637,7 +647,7 @@
         "/auth/login": {
             "post": {
                 "operationId": "login",
-                "description": "Handle an incoming authentication request. This Route does not requiere BearerToken.",
+                "description": "Esta ruta maneja las peticiones entrantes de autenticacion. No requiere BearerToken",
                 "summary": "Login Request",
                 "tags": [
                     "Auth"
@@ -660,11 +670,15 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
+                                        "user_id": {
+                                            "type": "string"
+                                        },
                                         "token": {
                                             "type": "string"
                                         }
                                     },
                                     "required": [
+                                        "user_id",
                                         "token"
                                     ]
                                 }
@@ -801,7 +815,7 @@
         "/auth/logout": {
             "post": {
                 "operationId": "logout",
-                "description": "Destroy an authenticated session.",
+                "description": "Destruye el BearerToken de la session.",
                 "summary": "Logout Request",
                 "tags": [
                     "Auth"
@@ -819,6 +833,8 @@
         "/chats": {
             "get": {
                 "operationId": "chats.index",
+                "description": "Esta ruta trae todos los chats de un usuario.",
+                "summary": "Show All Chats",
                 "tags": [
                     "Chat"
                 ],
@@ -840,6 +856,8 @@
             },
             "post": {
                 "operationId": "chats.store",
+                "description": "Esta ruta crea un chat a partir de 2 usuario.",
+                "summary": "Create Chat",
                 "tags": [
                     "Chat"
                 ],
@@ -887,6 +905,8 @@
         "/chats/{chat}": {
             "get": {
                 "operationId": "chats.show",
+                "description": "Esta ruta nos trae un chat especifico, y sus mensajes.",
+                "summary": "Show Chat",
                 "tags": [
                     "Chat"
                 ],
@@ -930,6 +950,8 @@
             },
             "put": {
                 "operationId": "chats.update",
+                "description": "Esta ruta actualiza la informacion del Chat. (usuarios)",
+                "summary": "Update Chat",
                 "tags": [
                     "Chat"
                 ],
@@ -989,6 +1011,8 @@
             },
             "delete": {
                 "operationId": "chats.destroy",
+                "description": "Esta ruta elimina un chat especifico.",
+                "summary": "Delete Chat",
                 "tags": [
                     "Chat"
                 ],
@@ -1019,6 +1043,8 @@
         "/commissions": {
             "get": {
                 "operationId": "commissions.index",
+                "description": "Esta ruta nos trae la comision de la empresa.",
+                "summary": "Show Commission",
                 "tags": [
                     "Commission"
                 ],
@@ -1040,6 +1066,8 @@
             },
             "post": {
                 "operationId": "commissions.store",
+                "description": "Esta ruta nos permite crear una nueva comission.",
+                "summary": "Create Commission",
                 "tags": [
                     "Commission"
                 ],
@@ -1084,141 +1112,11 @@
                 }
             }
         },
-        "/commissions/{commission}": {
-            "get": {
-                "operationId": "commissions.show",
-                "tags": [
-                    "Commission"
-                ],
-                "parameters": [
-                    {
-                        "name": "commission",
-                        "in": "path",
-                        "required": true,
-                        "description": "The commission ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`CommissionResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/CommissionResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "commissions.update",
-                "tags": [
-                    "Commission"
-                ],
-                "parameters": [
-                    {
-                        "name": "commission",
-                        "in": "path",
-                        "required": true,
-                        "description": "The commission ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CommissionUpdateRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`CommissionResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/CommissionResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "commissions.destroy",
-                "tags": [
-                    "Commission"
-                ],
-                "parameters": [
-                    {
-                        "name": "commission",
-                        "in": "path",
-                        "required": true,
-                        "description": "The commission ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
         "/driver-blocks": {
             "get": {
                 "operationId": "driver-blocks.index",
+                "description": "Trae todos los bloqueos de un usuario.",
+                "summary": "Show All Driver-Blocks",
                 "tags": [
                     "DriverBlock"
                 ],
@@ -1240,6 +1138,8 @@
             },
             "post": {
                 "operationId": "driver-blocks.store",
+                "description": "Crea el bloqueo de un usuario.",
+                "summary": "Create Driver-Block",
                 "tags": [
                     "DriverBlock"
                 ],
@@ -1287,6 +1187,8 @@
         "/driver-blocks/{driverBlock}": {
             "get": {
                 "operationId": "driver-blocks.show",
+                "description": "Muestra un bloqueo especifico de un usuario.",
+                "summary": "Show Driver-Block",
                 "tags": [
                     "DriverBlock"
                 ],
@@ -1330,6 +1232,8 @@
             },
             "put": {
                 "operationId": "driver-blocks.update",
+                "description": "Actualiza un bloqueo especifico de un usuario.",
+                "summary": "Update Driver-Block",
                 "tags": [
                     "DriverBlock"
                 ],
@@ -1389,6 +1293,8 @@
             },
             "delete": {
                 "operationId": "driver-blocks.destroy",
+                "description": "Elimina un bloqueo especifico de un usuario.",
+                "summary": "Delete Driver-Block",
                 "tags": [
                     "DriverBlock"
                 ],
@@ -1416,9 +1322,50 @@
                 }
             }
         },
+        "/graphql": {
+            "get": {
+                "operationId": "graphql",
+                "tags": [
+                    "GraphQL"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Error overview."
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/messages": {
             "get": {
                 "operationId": "messages.index",
+                "description": "Muestra Todos los mensajes de un usuario y chat especifico.",
+                "summary": "Show All Message",
                 "tags": [
                     "Message"
                 ],
@@ -1440,6 +1387,8 @@
             },
             "post": {
                 "operationId": "messages.store",
+                "description": "Crea un mensaje de un usuario y chat especifico.",
+                "summary": "Create Message",
                 "tags": [
                     "Message"
                 ],
@@ -1487,6 +1436,8 @@
         "/messages/{message}": {
             "get": {
                 "operationId": "messages.show",
+                "summary": "Show Message",
+                "deprecated": true,
                 "tags": [
                     "Message"
                 ],
@@ -1530,6 +1481,8 @@
             },
             "put": {
                 "operationId": "messages.update",
+                "description": "Actualiza un mensaje de un usuario y chat especifico.",
+                "summary": "Update Message",
                 "tags": [
                     "Message"
                 ],
@@ -1619,6 +1572,8 @@
         "/payments": {
             "get": {
                 "operationId": "payments.index",
+                "description": "Muestra todos los Payments de un usuario.",
+                "summary": "Show All Payments",
                 "tags": [
                     "Payment"
                 ],
@@ -1640,6 +1595,8 @@
             },
             "post": {
                 "operationId": "payments.store",
+                "description": "Crea un Payment.",
+                "summary": "Create Payment",
                 "tags": [
                     "Payment"
                 ],
@@ -1687,6 +1644,8 @@
         "/payments/{payment}": {
             "get": {
                 "operationId": "payments.show",
+                "description": "Muestra un Payment especifico.",
+                "summary": "Show Payment",
                 "tags": [
                     "Payment"
                 ],
@@ -1730,6 +1689,8 @@
             },
             "put": {
                 "operationId": "payments.update",
+                "description": "Actualiza un Payment especifico.",
+                "summary": "Update Payment",
                 "tags": [
                     "Payment"
                 ],
@@ -1786,39 +1747,13 @@
                         "$ref": "#/components/responses/AuthorizationException"
                     }
                 }
-            },
-            "delete": {
-                "operationId": "payments.destroy",
-                "tags": [
-                    "Payment"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment",
-                        "in": "path",
-                        "required": true,
-                        "description": "The payment ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
             }
         },
         "/ratings": {
             "get": {
                 "operationId": "ratings.index",
+                "description": "Muestra todos los ratings de un usuario especifico",
+                "summary": "Show All Ratings",
                 "tags": [
                     "Rating"
                 ],
@@ -1840,6 +1775,8 @@
             },
             "post": {
                 "operationId": "ratings.store",
+                "description": "Crea un rating de un usuario especifico",
+                "summary": "Create Rating",
                 "tags": [
                     "Rating"
                 ],
@@ -1887,6 +1824,8 @@
         "/ratings/{rating}": {
             "get": {
                 "operationId": "ratings.show",
+                "description": "Muestra un rating especifico de un usuario especifico",
+                "summary": "Show Rating",
                 "tags": [
                     "Rating"
                 ],
@@ -1930,6 +1869,8 @@
             },
             "put": {
                 "operationId": "ratings.update",
+                "description": "Actualiza un rating especifico de un usuario especifico",
+                "summary": "Update Rating",
                 "tags": [
                     "Rating"
                 ],
@@ -1989,6 +1930,8 @@
             },
             "delete": {
                 "operationId": "ratings.destroy",
+                "description": "Elimina un rating especifico de un usuario especifico",
+                "summary": "Delete Rating",
                 "tags": [
                     "Rating"
                 ],
@@ -2019,6 +1962,8 @@
         "/reservations": {
             "get": {
                 "operationId": "reservations.index",
+                "description": "Muestra todas las reservas de un usuario especifico",
+                "summary": "Show All Reservations",
                 "tags": [
                     "Reservation"
                 ],
@@ -2040,6 +1985,8 @@
             },
             "post": {
                 "operationId": "reservations.store",
+                "description": "Crea una reserva de un viaje",
+                "summary": "Create Reservation",
                 "tags": [
                     "Reservation"
                 ],
@@ -2087,6 +2034,8 @@
         "/reservations/{reservation}": {
             "get": {
                 "operationId": "reservations.show",
+                "description": "Muestra una reserva especifica de un usuario especifico",
+                "summary": "Show Reservation",
                 "tags": [
                     "Reservation"
                 ],
@@ -2130,6 +2079,8 @@
             },
             "put": {
                 "operationId": "reservations.update",
+                "description": "Actualiza una reserva especifica",
+                "summary": "Update Reservation",
                 "tags": [
                     "Reservation"
                 ],
@@ -2189,6 +2140,8 @@
             },
             "delete": {
                 "operationId": "reservations.destroy",
+                "description": "Elimina una Reservation",
+                "summary": "Delete Reservation",
                 "tags": [
                     "Reservation"
                 ],
@@ -2219,6 +2172,8 @@
         "/tags": {
             "get": {
                 "operationId": "tags.index",
+                "description": "Muestra todas las etiquetas",
+                "summary": "Show All Tags",
                 "tags": [
                     "Tag"
                 ],
@@ -2240,6 +2195,8 @@
             },
             "post": {
                 "operationId": "tags.store",
+                "description": "Crea una etiqueta",
+                "summary": "Create Tag",
                 "tags": [
                     "Tag"
                 ],
@@ -2287,6 +2244,8 @@
         "/tags/{tag}": {
             "get": {
                 "operationId": "tags.show",
+                "description": "Muestra una etiqueta especifica.",
+                "summary": "Show Tag",
                 "tags": [
                     "Tag"
                 ],
@@ -2330,6 +2289,8 @@
             },
             "put": {
                 "operationId": "tags.update",
+                "description": "Actualiza una etiqueta especifica.",
+                "summary": "Update Tag",
                 "tags": [
                     "Tag"
                 ],
@@ -2389,6 +2350,8 @@
             },
             "delete": {
                 "operationId": "tags.destroy",
+                "description": "Elimina una etiqueta especifica.",
+                "summary": "Delete Tag",
                 "tags": [
                     "Tag"
                 ],
@@ -2419,6 +2382,8 @@
         "/transactions": {
             "get": {
                 "operationId": "transactions.index",
+                "description": "Muestra todas las transacciones de un usuario especifico.",
+                "summary": "Show All Transactions",
                 "tags": [
                     "Transaction"
                 ],
@@ -2440,6 +2405,8 @@
             },
             "post": {
                 "operationId": "transactions.store",
+                "description": "Crea una transaccion",
+                "summary": "Create Transaction",
                 "tags": [
                     "Transaction"
                 ],
@@ -2487,6 +2454,8 @@
         "/transactions/{transaction}": {
             "get": {
                 "operationId": "transactions.show",
+                "description": "Muestra una transaccion especifica",
+                "summary": "Show Transaction",
                 "tags": [
                     "Transaction"
                 ],
@@ -2530,6 +2499,8 @@
             },
             "put": {
                 "operationId": "transactions.update",
+                "description": "Actualiza una transaccion especifica",
+                "summary": "Update Transaction",
                 "tags": [
                     "Transaction"
                 ],
@@ -2586,39 +2557,13 @@
                         "$ref": "#/components/responses/AuthorizationException"
                     }
                 }
-            },
-            "delete": {
-                "operationId": "transactions.destroy",
-                "tags": [
-                    "Transaction"
-                ],
-                "parameters": [
-                    {
-                        "name": "transaction",
-                        "in": "path",
-                        "required": true,
-                        "description": "The transaction ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
             }
         },
         "/trips": {
             "get": {
                 "operationId": "trips.index",
+                "description": "Muestra todos los viajes.",
+                "summary": "Show All Trips",
                 "tags": [
                     "Trip"
                 ],
@@ -2640,6 +2585,8 @@
             },
             "post": {
                 "operationId": "trips.store",
+                "description": "Crea un viaje.",
+                "summary": "Create Trip",
                 "tags": [
                     "Trip"
                 ],
@@ -2687,6 +2634,8 @@
         "/trips/{trip}": {
             "get": {
                 "operationId": "trips.show",
+                "description": "Muestra un viaje especifico.",
+                "summary": "Show Trip",
                 "tags": [
                     "Trip"
                 ],
@@ -2730,6 +2679,8 @@
             },
             "put": {
                 "operationId": "trips.update",
+                "description": "Actualiza un viaje especifico.",
+                "summary": "Update Trip",
                 "tags": [
                     "Trip"
                 ],
@@ -2789,6 +2740,8 @@
             },
             "delete": {
                 "operationId": "trips.destroy",
+                "description": "Elimina un viaje especifico.",
+                "summary": "Delete Trip",
                 "tags": [
                     "Trip"
                 ],
@@ -2819,6 +2772,8 @@
         "/users": {
             "get": {
                 "operationId": "users.index",
+                "description": "Muestra todos los usuarios",
+                "summary": "Show All Users",
                 "tags": [
                     "User"
                 ],
@@ -2840,6 +2795,8 @@
             },
             "post": {
                 "operationId": "users.store",
+                "summary": "Create User",
+                "deprecated": true,
                 "tags": [
                     "User"
                 ],
@@ -2887,6 +2844,8 @@
         "/users/{user}": {
             "get": {
                 "operationId": "users.show",
+                "description": "Muestra un usuario especifico.",
+                "summary": "Show User",
                 "tags": [
                     "User"
                 ],
@@ -2930,6 +2889,8 @@
             },
             "put": {
                 "operationId": "users.update",
+                "description": "Actualiza un usuario especifico.",
+                "summary": "Update User",
                 "tags": [
                     "User"
                 ],
@@ -2989,6 +2950,8 @@
             },
             "delete": {
                 "operationId": "users.destroy",
+                "description": "Elimina un usuario especifico.",
+                "summary": "Delete User",
                 "tags": [
                     "User"
                 ],
@@ -3019,6 +2982,8 @@
         "/vehicles": {
             "get": {
                 "operationId": "vehicles.index",
+                "description": "Muestra todos los vehiculos.",
+                "summary": "Show All Vehicles",
                 "tags": [
                     "Vehicle"
                 ],
@@ -3040,6 +3005,8 @@
             },
             "post": {
                 "operationId": "vehicles.store",
+                "description": "Crea un vehiculo.",
+                "summary": "Create Vehicle",
                 "tags": [
                     "Vehicle"
                 ],
@@ -3087,6 +3054,8 @@
         "/vehicles/{vehicle}": {
             "get": {
                 "operationId": "vehicles.show",
+                "description": "Muestra un vehiculo especifico.",
+                "summary": "Show Vehicle",
                 "tags": [
                     "Vehicle"
                 ],
@@ -3130,6 +3099,8 @@
             },
             "put": {
                 "operationId": "vehicles.update",
+                "description": "Actualiza un vehiculo especifico.",
+                "summary": "Update Vehicle",
                 "tags": [
                     "Vehicle"
                 ],
@@ -3189,6 +3160,8 @@
             },
             "delete": {
                 "operationId": "vehicles.destroy",
+                "description": "Elimina un vehiculo especifico.",
+                "summary": "Delete Vehicle",
                 "tags": [
                     "Vehicle"
                 ],
@@ -3322,13 +3295,6 @@
                     "user2_id": {
                         "type": "integer"
                     },
-                    "creation_date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    },
                     "messages": {
                         "$ref": "#/components/schemas/MessageCollection"
                     }
@@ -3336,9 +3302,7 @@
                 "required": [
                     "id",
                     "user1_id",
-                    "user2_id",
-                    "creation_date",
-                    "user_id"
+                    "user2_id"
                 ],
                 "title": "ChatResource"
             },
@@ -3350,19 +3314,11 @@
                     },
                     "user2_id": {
                         "type": "integer"
-                    },
-                    "creation_date": {
-                        "type": "string"
-                    },
-                    "user_id": {
-                        "type": "integer"
                     }
                 },
                 "required": [
                     "user1_id",
-                    "user2_id",
-                    "creation_date",
-                    "user_id"
+                    "user2_id"
                 ],
                 "title": "ChatStoreRequest"
             },
@@ -3374,19 +3330,11 @@
                     },
                     "user2_id": {
                         "type": "integer"
-                    },
-                    "creation_date": {
-                        "type": "string"
-                    },
-                    "user_id": {
-                        "type": "integer"
                     }
                 },
                 "required": [
                     "user1_id",
-                    "user2_id",
-                    "creation_date",
-                    "user_id"
+                    "user2_id"
                 ],
                 "title": "ChatUpdateRequest"
             },
@@ -3433,18 +3381,6 @@
                 ],
                 "title": "CommissionStoreRequest"
             },
-            "CommissionUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "value": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "value"
-                ],
-                "title": "CommissionUpdateRequest"
-            },
             "DriverBlockCollection": {
                 "type": "object",
                 "properties": {
@@ -3469,10 +3405,6 @@
                     "reason": {
                         "type": "string"
                     },
-                    "block_date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
                     "status": {
                         "type": "string"
                     },
@@ -3483,7 +3415,6 @@
                 "required": [
                     "id",
                     "reason",
-                    "block_date",
                     "status",
                     "user_id"
                 ],
@@ -3495,9 +3426,6 @@
                     "reason": {
                         "type": "string"
                     },
-                    "block_date": {
-                        "type": "string"
-                    },
                     "status": {
                         "type": "string",
                         "enum": [
@@ -3511,7 +3439,6 @@
                 },
                 "required": [
                     "reason",
-                    "block_date",
                     "status",
                     "user_id"
                 ],
@@ -3520,13 +3447,7 @@
             "DriverBlockUpdateRequest": {
                 "type": "object",
                 "properties": {
-                    "driver_id": {
-                        "type": "integer"
-                    },
                     "reason": {
-                        "type": "string"
-                    },
-                    "block_date": {
                         "type": "string"
                     },
                     "status": {
@@ -3541,9 +3462,7 @@
                     }
                 },
                 "required": [
-                    "driver_id",
                     "reason",
-                    "block_date",
                     "status",
                     "user_id"
                 ],
@@ -3599,15 +3518,8 @@
                     "message": {
                         "type": "string"
                     },
-                    "sent_date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
                     "status": {
                         "type": "string"
-                    },
-                    "user_id": {
-                        "type": "integer"
                     }
                 },
                 "required": [
@@ -3615,9 +3527,7 @@
                     "chat_id",
                     "sender_id",
                     "message",
-                    "sent_date",
-                    "status",
-                    "user_id"
+                    "status"
                 ],
                 "title": "MessageResource"
             },
@@ -3678,10 +3588,6 @@
                     "payment_method": {
                         "type": "string"
                     },
-                    "payment_date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
                     "status": {
                         "type": "string"
                     },
@@ -3694,7 +3600,6 @@
                     "reservation_id",
                     "amount",
                     "payment_method",
-                    "payment_date",
                     "status"
                 ],
                 "title": "PaymentResource"
@@ -3718,9 +3623,6 @@
                             "mercadopago"
                         ]
                     },
-                    "payment_date": {
-                        "type": "string"
-                    },
                     "status": {
                         "type": "string",
                         "enum": [
@@ -3735,7 +3637,6 @@
                     "reservation_id",
                     "amount",
                     "payment_method",
-                    "payment_date",
                     "status"
                 ],
                 "title": "PaymentStoreRequest"
@@ -3759,9 +3660,6 @@
                             "mercadopago"
                         ]
                     },
-                    "payment_date": {
-                        "type": "string"
-                    },
                     "status": {
                         "type": "string",
                         "enum": [
@@ -3776,7 +3674,6 @@
                     "reservation_id",
                     "amount",
                     "payment_method",
-                    "payment_date",
                     "status"
                 ],
                 "title": "PaymentUpdateRequest"
@@ -3816,10 +3713,6 @@
                     },
                     "comment": {
                         "type": "string"
-                    },
-                    "rating_date": {
-                        "type": "string",
-                        "format": "date-time"
                     }
                 },
                 "required": [
@@ -3828,8 +3721,7 @@
                     "user_id",
                     "driver_id",
                     "rating",
-                    "comment",
-                    "rating_date"
+                    "comment"
                 ],
                 "title": "RatingResource"
             },
@@ -3887,10 +3779,6 @@
                     "status": {
                         "type": "string"
                     },
-                    "reservation_date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
                     "trip": {
                         "$ref": "#/components/schemas/TripResource"
                     },
@@ -3902,8 +3790,7 @@
                     "id",
                     "user_id",
                     "trip_id",
-                    "status",
-                    "reservation_date"
+                    "status"
                 ],
                 "title": "ReservationResource"
             },
@@ -3923,16 +3810,12 @@
                             "confirmed",
                             "canceled"
                         ]
-                    },
-                    "reservation_date": {
-                        "type": "string"
                     }
                 },
                 "required": [
                     "user_id",
                     "trip_id",
-                    "status",
-                    "reservation_date"
+                    "status"
                 ],
                 "title": "ReservationStoreRequest"
             },
@@ -3952,16 +3835,12 @@
                             "confirmed",
                             "canceled"
                         ]
-                    },
-                    "reservation_date": {
-                        "type": "string"
                     }
                 },
                 "required": [
                     "user_id",
                     "trip_id",
-                    "status",
-                    "reservation_date"
+                    "status"
                 ],
                 "title": "ReservationUpdateRequest"
             },
@@ -4062,10 +3941,6 @@
                     "company_final_amount": {
                         "type": "string"
                     },
-                    "transaction_date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
                     "status": {
                         "type": "string"
                     },
@@ -4080,7 +3955,6 @@
                     "driver_id",
                     "total_amount",
                     "company_final_amount",
-                    "transaction_date",
                     "status",
                     "user_id"
                 ],

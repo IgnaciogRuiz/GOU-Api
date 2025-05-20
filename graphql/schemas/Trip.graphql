@@ -1,0 +1,34 @@
+type Trip @guard {
+    id: ID!
+    origin: String!
+    destination: String!
+    date: String!
+    available_seats: Int!
+    price: Float!
+    vehicle: Vehicle @belongsTo
+    reservations: [Reservation!]! @hasMany
+    ratings: [Rating!]! @hasMany
+    tags: [Tag!]! @belongsToMany(relation: "tags")
+}
+
+#inputs
+input CreateTripInput {
+    origin: String!
+    destination: String!
+    date: String!
+    available_seats: Int!
+    price: Float!
+    vehicle_id: ID!
+    tagIds: [ID!]
+}
+
+input UpdateTripInput {
+    id: ID!
+    origin: String
+    destination: String
+    date: String
+    available_seats: Int
+    price: Float
+    vehicle_id: ID
+    tagIds: [ID!]
+}

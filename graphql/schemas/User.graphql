@@ -17,8 +17,4 @@ type User @guard {
     driverBlocks: [DriverBlock!]! @hasMany
 }
 
-type Query @guard {
-    # USER
-    users: [User!]! @all(model: "User")
-    user(id: ID @eq): User @find(model: "User")
-}
+

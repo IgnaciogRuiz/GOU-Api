@@ -1,0 +1,12 @@
+type Vehicle @guard {
+    id: ID!
+    user_id: ID!
+    brand: String!
+    model: String!
+    year: Int!
+    license_plate: String!
+    dnrpa_approved: Boolean!
+    user: User @belongsTo
+    trips: [Trip!]! @hasMany
+}
+

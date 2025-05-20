@@ -1,0 +1,11 @@
+enum BlockStatus {
+    active
+    removed
+}
+
+type DriverBlock @guard {
+    id: ID!
+    reason: String!
+    status: BlockStatus!
+    user: User @belongsTo(relation: "user")
+}
