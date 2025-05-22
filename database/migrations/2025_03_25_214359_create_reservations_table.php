@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('trip_id')->constrained();
+            $table->unsignedTinyInteger('seats')->default(1);
             $table->enum('status', ["pending", "in_progress", "completed", "canceled"]);
             $table->timestamps();
         });

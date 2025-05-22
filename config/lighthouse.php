@@ -198,7 +198,7 @@ return [
         'scalars' => 'App\\GraphQL\\Scalars',
         'directives' => 'App\\GraphQL\\Directives',
         'validators' => 'App\\GraphQL\\Validators',
-        'resolver' => 'App\\GraphQL\\Mutations',
+        'resolver' => 'App\\GraphQL\\Resolver',
     ],
 
     /*

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        User::create([
+        $ignacio = User::create([
             'dni' => 46767790,
             'firstname' => 'Ignacio',
             'lastname' => 'Ruiz',
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'pending_balance' => 0,
         ]);
 
-        User::create([
+        $marco = User::create([
             'dni' => 95934473,
             'firstname' => 'Marco',
             'lastname' => 'Taliente',
@@ -43,6 +43,14 @@ class DatabaseSeeder extends Seeder
             'validated' => fake()->boolean(),
             'cvu' => fake()->regexify('[0-9]{22}'),
             'pending_balance' => 0,
+        ]);
+
+
+        // Ignacio es conductor (tiene vehículos y trips)
+        $tripDeIgnacio = Trip::factory()->create([
+            'vehicle_id' => Vehicle::factory()->create([
+                'user_id' => $ignacio->id,
+            ])->id,
         ]);
 
         $etiquetasPermitidas = [
@@ -62,6 +70,46 @@ class DatabaseSeeder extends Seeder
             Tag::create(['name' => $etiqueta]);
         }
 
+        // Ignacio como conductor: 2 trips
+        $vehicleIgnacio = Vehicle::factory()->create(['user_id' => $ignacio->id]);
+
+        $trip1Ignacio = Trip::factory()->create(['vehicle_id' => $vehicleIgnacio->id]);
+        $trip2Ignacio = Trip::factory()->create(['vehicle_id' => $vehicleIgnacio->id]);
+
+        // Marco como pasajero en un trip de Ignacio
+        Reservation::create([
+            'user_id' => $marco->id,
+            'trip_id' => $trip1Ignacio->id,
+            'status' => 'completed',
+        ]);
+
+        // Marco como conductor: 1 trip
+        $vehicleMarco = Vehicle::factory()->create(['user_id' => $marco->id]);
+        $tripMarco = Trip::factory()->create(['vehicle_id' => $vehicleMarco->id]);
+
+        // Ignacio como pasajero en un trip de Marco
+        Reservation::create([
+            'user_id' => $ignacio->id,
+            'trip_id' => $tripMarco->id,
+            'status' => 'completed',
+        ]);
+
+        // Marco como pasajero en 2 trips más (en total 3 reservas como pasajero)
+        $otroTrip1 = Trip::factory()->create(['vehicle_id' => Vehicle::factory()->create()->id]);
+        $otroTrip2 = Trip::factory()->create(['vehicle_id' => Vehicle::factory()->create()->id]);
+
+        Reservation::create([
+            'user_id' => $marco->id,
+            'trip_id' => $otroTrip1->id,
+            'status' => 'completed',
+        ]);
+
+        Reservation::create([
+            'user_id' => $marco->id,
+            'trip_id' => $otroTrip2->id,
+            'status' => 'completed',
+        ]);
+
         Reservation::factory()->count(15)->create();
 
         $reservations = Reservation::get();
@@ -69,6 +117,10 @@ class DatabaseSeeder extends Seeder
         foreach ($reservations as $reserv) {
             if ($reserv->status !== 'canceled') {
                 $trip = Trip::find($reserv->trip_id); //viaje
+                if ($trip->available_seats > 0) { //descontar seats
+                    $trip->available_seats = max(0, $trip->available_seats - 1);
+                    $trip->save();
+                }
                 $vehicle = Vehicle::find($trip->vehicle_id); //vehiculo
                 $driver = User::find($vehicle->user_id); //el conductor del vehiculo
                 $comision = Commission::orderBy('id', 'desc')->first(); //la commission de la empresa

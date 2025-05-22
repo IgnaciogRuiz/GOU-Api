@@ -6,29 +6,62 @@ type Mutation @guard {
     deleteChat(id: ID! @eq): Boolean! @delete(model: Chat)
 
     #DriverBlock
-    createDriverBlock(reason: String!, status: BlockStatus!, user_id: ID!): DriverBlock! @create
+    createDriverBlock(
+        reason: String!
+        status: BlockStatus!
+        user_id: ID!
+    ): DriverBlock! @create
     updateDriverBlock(id: ID!, status: BlockStatus): DriverBlock! @update
     deleteDriverBlock(id: ID! @eq): Boolean! @delete(model: DriverBlock)
 
     #Message
-    createMessage(chat_id: ID!, sender_id: ID!, message: String!, status: MessageStatus!): Message! @create
+    createMessage(
+        chat_id: ID!
+        sender_id: ID!
+        message: String!
+        status: MessageStatus!
+    ): Message! @create
     updateMessage(id: ID!, status: MessageStatus): Message! @update
     deleteMessage(id: ID! @eq): Boolean! @delete(model: Message)
 
     #Payments
-    createPayment(transaction: Int!, amount: Float!, payment_method: PaymentMethod!, status: PaymentStatus!, reservation_id: ID!): Payment! @create
+    createPayment(
+        transaction: Int!
+        amount: Float!
+        payment_method: PaymentMethod!
+        status: PaymentStatus!
+        reservation_id: ID!
+    ): Payment! @create
     updatePayment(id: ID!, status: PaymentStatus): Payment! @update
     deletePayment(id: ID! @eq): Boolean! @delete(model: Payment)
 
     #Ratings
-    createRating(rating: Int!, comment: String!, trip_id: ID!, user_id: ID!, driver_id: ID!): Rating! @create
+    createRating(
+        rating: Int!
+        comment: String!
+        trip_id: ID!
+        user_id: ID!
+        driver_id: ID!
+    ): Rating! @create
     updateRating(id: ID!, rating: Int, comment: String): Rating! @update
     deleteRating(id: ID! @eq): Boolean! @delete(model: Rating)
 
     #Reservations
-    createReservation(status: String!, trip_id: ID!, user_id: ID!): Reservation! @create
-    updateReservation(id: ID!, status: String): Reservation! @update
+    createReservation(
+        status: String!
+        trip_id: ID!
+        user_id: ID!
+        seats: Int!
+    ): Reservation! @field(resolver: "ReservationResolver@createReservation")
+
+    updateReservation(
+        id: ID!
+        status: String 
+        seats: Int!
+    ): Reservation! @field(resolver: "ReservationResolver@updateReservation")
+
     deleteReservation(id: ID! @eq): Boolean! @delete(model: Reservation)
+
 
     #Tags
     createTag(name: String!): Tag! @create
@@ -36,25 +69,59 @@ type Mutation @guard {
     deleteTag(id: ID! @eq): Boolean! @delete(model: Tag)
 
     #Transactions
-    createTransaction(transaction: Int!, amount: Float!, company_final_amount: Float!, status: TransactionStatus!, user_id: ID!): Transaction! @create
+    createTransaction(
+        transaction: Int!
+        amount: Float!
+        company_final_amount: Float!
+        status: TransactionStatus!
+        user_id: ID!
+    ): Transaction! @create
     updateTransaction(id: ID!, status: TransactionStatus): Transaction! @update
     deleteTransaction(id: ID! @eq): Boolean! @delete(model: Transaction)
 
     #Actualizar User
-    updateUser(id: ID!, dni: String, firstname: String, lastname: String, email: String, phone: String, validated: Boolean, cvu: String, pending_balance: String): User @update
+    updateUser(
+        id: ID!
+        dni: String
+        firstname: String
+        lastname: String
+        email: String
+        phone: String
+        validated: Boolean
+        cvu: String
+        pending_balance: String
+    ): User @update
 
     #Trips
-    createTrip(input: CreateTripInput!): Trip @field(resolver: "TripResolver@createTrip")
-    updateTrip(input: UpdateTripInput!): Trip @field(resolver: "TripResolver@updateTrip")
+    createTrip(input: CreateTripInput!): Trip
+        @field(resolver: "TripResolver@createTrip")
+    updateTrip(input: UpdateTripInput!): Trip
+        @field(resolver: "TripResolver@updateTrip")
     deleteTrip(id: ID!): Boolean @field(resolver: "TripResolver@deleteTrip")
 
     #Vehicles
-    createVehicle(user_id: ID!, brand: String!, model: String!, year: Int!, license_plate: String!, dnrpa_approved: Boolean!): Vehicle! @create
-    updateVehicle(id: ID!, brand: String, model: String, year: Int, license_plate: String): Vehicle! @update
+    createVehicle(
+        user_id: ID!
+        brand: String!
+        model: String!
+        year: Int!
+        license_plate: String!
+        dnrpa_approved: Boolean!
+    ): Vehicle! @create
+    updateVehicle(
+        id: ID!
+        brand: String
+        model: String
+        year: Int
+        license_plate: String
+    ): Vehicle! @update
     deleteVehicle(id: ID! @eq): Boolean! @delete(model: Vehicle)
 }
 
 type Query @guard {
+    # AUTH
+    me: User @field(resolver: "UserQuery@me")
+
     # ALLOWS
     allows: [Allow!]! @all(model: "Allow")
     allow(id: ID @eq): Allow @find(model: "Allow")
@@ -103,5 +170,3 @@ type Query @guard {
     vehicles: [Vehicle!]! @all(model: "Vehicle")
     vehicle(id: ID @eq): Vehicle @find(model: "Vehicle")
 }
-
-
