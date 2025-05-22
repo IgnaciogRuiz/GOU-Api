@@ -7,7 +7,7 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\DB;
 use GraphQL\Error\Error;
 
-class ReservationMutator
+class ReservationResolver
 {
     public function createReservation($_, array $args)
     {
