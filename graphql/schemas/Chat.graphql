@@ -3,4 +3,5 @@ type Chat @guard {
     user1: User @belongsTo(relation: "user1")
     user2: User @belongsTo(relation: "user2")
     messages: [Message!]! @hasMany
+    #other_user: User! @field(resolver: "ChatQuery@otherUser")
 }
