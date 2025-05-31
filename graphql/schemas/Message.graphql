@@ -9,4 +9,6 @@ type Message @guard {
     sender: User @belongsTo(relation: "sender")
     message: String!
     status: MessageStatus!
+    created_at: DateTime!
+    updated_at: DateTime!
 }

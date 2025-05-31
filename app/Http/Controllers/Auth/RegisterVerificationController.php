@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\EmailVerificationCodeNotification;
 use Dedoc\Scramble\Attributes\Group;
 
-#[Group('Auth')]
+#[Group('Register')]
 class RegisterVerificationController extends Controller
 {
     /**

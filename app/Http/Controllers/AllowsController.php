@@ -9,6 +9,9 @@ use App\Http\Resources\AllowResource;
 use App\Models\Allows;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
 
 class AllowsController extends Controller
 {
@@ -17,6 +20,7 @@ class AllowsController extends Controller
      * 
      * Esta ruta nos permite traer todos los elementos de la tabla itermedia Allow.
      */
+
     public function index(Request $request)
     {
         $allows = Allows::all();
@@ -30,6 +34,7 @@ class AllowsController extends Controller
      * 
      * Esta ruta nos permite crear una relacion entre una "Tag" y un "trip".
      */
+
     public function store(AllowStoreRequest $request)
     {
         $allow = Allows::create($request->validated());
@@ -42,6 +47,7 @@ class AllowsController extends Controller
      * 
      * Esta ruta nos permite ver 1 fila especifica de la tabla.
      */
+
     public function show(Request $request, Allows $allow)
     {
         return new AllowResource($allow);
@@ -52,6 +58,7 @@ class AllowsController extends Controller
      * 
      * Esta ruta nos permite actualizar una fila de la tabla.
      */
+
     public function update(AllowUpdateRequest $request, Allows $allow)
     {
         $allow->update($request->validated());
@@ -64,6 +71,7 @@ class AllowsController extends Controller
      * 
      * Esta ruta destruye una fila de la tabla.
      */
+
     public function destroy(Request $request, Allows $allow)
     {
         $allow->delete();

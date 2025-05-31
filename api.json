@@ -16,634 +16,6 @@
         }
     ],
     "paths": {
-        "/allows": {
-            "get": {
-                "operationId": "allows.index",
-                "description": "Esta ruta nos permite traer todos los elementos de la tabla itermedia Allow.",
-                "summary": "Show All Allows",
-                "tags": [
-                    "Allows"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`AllowCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AllowCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "post": {
-                "operationId": "allows.store",
-                "description": "Esta ruta nos permite crear una relacion entre una \"Tag\" y un \"trip\".",
-                "summary": "Create Allow",
-                "tags": [
-                    "Allows"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/AllowStoreRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`AllowResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/AllowResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/allows/{allow}": {
-            "get": {
-                "operationId": "allows.show",
-                "description": "Esta ruta nos permite ver 1 fila especifica de la tabla.",
-                "summary": "Show Allow",
-                "tags": [
-                    "Allows"
-                ],
-                "parameters": [
-                    {
-                        "name": "allow",
-                        "in": "path",
-                        "required": true,
-                        "description": "The allow ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`AllowResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/AllowResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "allows.update",
-                "description": "Esta ruta nos permite actualizar una fila de la tabla.",
-                "summary": "Update Allow",
-                "tags": [
-                    "Allows"
-                ],
-                "parameters": [
-                    {
-                        "name": "allow",
-                        "in": "path",
-                        "required": true,
-                        "description": "The allow ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/AllowUpdateRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`AllowResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/AllowResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "allows.destroy",
-                "description": "Esta ruta destruye una fila de la tabla.",
-                "summary": "Delete Allow",
-                "tags": [
-                    "Allows"
-                ],
-                "parameters": [
-                    {
-                        "name": "allow",
-                        "in": "path",
-                        "required": true,
-                        "description": "The allow ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
-        "/auth/register/verify-email": {
-            "post": {
-                "operationId": "registerVerification.verifyEmail",
-                "description": "Esta ruta se encarga de verificar si el email ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo.",
-                "summary": "Verify Email Request",
-                "tags": [
-                    "Auth"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    }
-                                },
-                                "required": [
-                                    "email"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "C\u00f3digo enviado al correo"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-phone": {
-            "post": {
-                "operationId": "registerVerification.verifyPhone",
-                "description": "Esta ruta se encarga de verificar si el telefono ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo. Falta terminar la funcion para que envie el sms",
-                "summary": "Verify Phone Request",
-                "tags": [
-                    "Auth"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "phone": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "phone"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Enviar SMS con Twilio (todavia no funca)\n$twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));\n$twilio->messages->create($phone, [\n'from' => env('TWILIO_PHONE_NUMBER'),\n'body' => \"Tu c\u00f3digo de verificaci\u00f3n es: $phoneCode\"\n]);",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "C\u00f3digo enviado"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-email-token": {
-            "post": {
-                "operationId": "registerVerification.verifyEmailToken",
-                "description": "Esta ruta verifica que el token ingresado proviene del mail asi dando el \"ok\" para utilizarlo en Registration Request.",
-                "summary": "Verify Email Token Request",
-                "tags": [
-                    "Auth"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    },
-                                    "code": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "email",
-                                    "code"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Email verificado correctamente"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-phone-token": {
-            "post": {
-                "operationId": "registerVerification.verifyPhoneToken",
-                "description": "Esta ruta verifica que el token ingresado proviene del telefono asi dando el \"ok\" para utilizarlo en Registration Request.",
-                "summary": "Verify Phone Token Request",
-                "tags": [
-                    "Auth"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "phone": {
-                                        "type": "string"
-                                    },
-                                    "code": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "phone",
-                                    "code"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Tel\u00e9fono verificado correctamente"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-identity": {
-            "post": {
-                "operationId": "registerVerification.verifyIdentity",
-                "description": "Esta ruta verifica que la identidad del usuario mediante la API de renaper asi dando el \"ok\" para utilizarlo en Registration Request. FALTA TERMINARLA",
-                "summary": "Verify Identity Request",
-                "tags": [
-                    "Auth"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "dni": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "dni"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Identidad verificada"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register/verify-password": {
-            "post": {
-                "operationId": "registerVerification.verifyPassword",
-                "description": "Esta ruta verifica que la contrase\u00f1a cumple con las validaciones necesarias asi dando el \"ok\" para utilizarlo en Registration Request.",
-                "summary": "Verify Password Request",
-                "tags": [
-                    "Auth"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "password": {
-                                        "type": "string",
-                                        "minLength": 8
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "password",
-                                    "password_confirmation"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Contrase\u00f1a v\u00e1lida"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
-        "/auth/register": {
-            "post": {
-                "operationId": "register",
-                "description": "Esta ruta se encarga de manejar las solicitudes de registro. Posterior a ellas existen las RegisterVerifications para ahorrar error en la request.",
-                "summary": "Registration Request",
-                "tags": [
-                    "Auth"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "dni": {
-                                        "type": "string",
-                                        "maxLength": 20
-                                    },
-                                    "name": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "maxLength": 255
-                                    },
-                                    "phone": {
-                                        "type": "string",
-                                        "maxLength": 20
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "cvu": {
-                                        "type": [
-                                            "string",
-                                            "null"
-                                        ],
-                                        "maxLength": 50
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "dni",
-                                    "name",
-                                    "email",
-                                    "phone",
-                                    "password",
-                                    "password_confirmation"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Auth::login($user);",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Usuario creado"
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    }
-                },
-                "security": []
-            }
-        },
         "/auth/login": {
             "post": {
                 "operationId": "login",
@@ -830,216 +202,6 @@
                 }
             }
         },
-        "/chats": {
-            "get": {
-                "operationId": "chats.index",
-                "description": "Esta ruta trae todos los chats de un usuario.",
-                "summary": "Show All Chats",
-                "tags": [
-                    "Chat"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`ChatCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ChatCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "post": {
-                "operationId": "chats.store",
-                "description": "Esta ruta crea un chat a partir de 2 usuario.",
-                "summary": "Create Chat",
-                "tags": [
-                    "Chat"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ChatStoreRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`ChatResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/ChatResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/chats/{chat}": {
-            "get": {
-                "operationId": "chats.show",
-                "description": "Esta ruta nos trae un chat especifico, y sus mensajes.",
-                "summary": "Show Chat",
-                "tags": [
-                    "Chat"
-                ],
-                "parameters": [
-                    {
-                        "name": "chat",
-                        "in": "path",
-                        "required": true,
-                        "description": "The chat ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`ChatResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/ChatResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "chats.update",
-                "description": "Esta ruta actualiza la informacion del Chat. (usuarios)",
-                "summary": "Update Chat",
-                "tags": [
-                    "Chat"
-                ],
-                "parameters": [
-                    {
-                        "name": "chat",
-                        "in": "path",
-                        "required": true,
-                        "description": "The chat ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ChatUpdateRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`ChatResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/ChatResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "chats.destroy",
-                "description": "Esta ruta elimina un chat especifico.",
-                "summary": "Delete Chat",
-                "tags": [
-                    "Chat"
-                ],
-                "parameters": [
-                    {
-                        "name": "chat",
-                        "in": "path",
-                        "required": true,
-                        "description": "The chat ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
         "/commissions": {
             "get": {
                 "operationId": "commissions.index",
@@ -1112,216 +274,6 @@
                 }
             }
         },
-        "/driver-blocks": {
-            "get": {
-                "operationId": "driver-blocks.index",
-                "description": "Trae todos los bloqueos de un usuario.",
-                "summary": "Show All Driver-Blocks",
-                "tags": [
-                    "DriverBlock"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`DriverBlockCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/DriverBlockCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "post": {
-                "operationId": "driver-blocks.store",
-                "description": "Crea el bloqueo de un usuario.",
-                "summary": "Create Driver-Block",
-                "tags": [
-                    "DriverBlock"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/DriverBlockStoreRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`DriverBlockResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/DriverBlockResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/driver-blocks/{driverBlock}": {
-            "get": {
-                "operationId": "driver-blocks.show",
-                "description": "Muestra un bloqueo especifico de un usuario.",
-                "summary": "Show Driver-Block",
-                "tags": [
-                    "DriverBlock"
-                ],
-                "parameters": [
-                    {
-                        "name": "driverBlock",
-                        "in": "path",
-                        "required": true,
-                        "description": "The driver block ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`DriverBlockResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/DriverBlockResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "driver-blocks.update",
-                "description": "Actualiza un bloqueo especifico de un usuario.",
-                "summary": "Update Driver-Block",
-                "tags": [
-                    "DriverBlock"
-                ],
-                "parameters": [
-                    {
-                        "name": "driverBlock",
-                        "in": "path",
-                        "required": true,
-                        "description": "The driver block ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/DriverBlockUpdateRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`DriverBlockResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/DriverBlockResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "driver-blocks.destroy",
-                "description": "Elimina un bloqueo especifico de un usuario.",
-                "summary": "Delete Driver-Block",
-                "tags": [
-                    "DriverBlock"
-                ],
-                "parameters": [
-                    {
-                        "name": "driverBlock",
-                        "in": "path",
-                        "required": true,
-                        "description": "The driver block ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
         "/graphql": {
             "get": {
                 "operationId": "graphql",
@@ -1361,1832 +313,444 @@
                 }
             }
         },
-        "/messages": {
-            "get": {
-                "operationId": "messages.index",
-                "description": "Muestra Todos los mensajes de un usuario y chat especifico.",
-                "summary": "Show All Message",
-                "tags": [
-                    "Message"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`MessageCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MessageCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
+        "/auth/register/verify-email": {
             "post": {
-                "operationId": "messages.store",
-                "description": "Crea un mensaje de un usuario y chat especifico.",
-                "summary": "Create Message",
+                "operationId": "registerVerification.verifyEmail",
+                "description": "Esta ruta se encarga de verificar si el email ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo.",
+                "summary": "Verify Email Request",
                 "tags": [
-                    "Message"
+                    "Register"
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MessageStoreRequest"
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "`MessageResource`",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/MessageResource"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "C\u00f3digo enviado al correo"
                                         }
                                     },
                                     "required": [
-                                        "data"
+                                        "message"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/messages/{message}": {
-            "get": {
-                "operationId": "messages.show",
-                "summary": "Show Message",
-                "deprecated": true,
-                "tags": [
-                    "Message"
-                ],
-                "parameters": [
-                    {
-                        "name": "message",
-                        "in": "path",
-                        "required": true,
-                        "description": "The message ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`MessageResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/MessageResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "messages.update",
-                "description": "Actualiza un mensaje de un usuario y chat especifico.",
-                "summary": "Update Message",
-                "tags": [
-                    "Message"
-                ],
-                "parameters": [
-                    {
-                        "name": "message",
-                        "in": "path",
-                        "required": true,
-                        "description": "The message ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/MessageUpdateRequest"
-                            }
-                        }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "`MessageResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/MessageResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "messages.destroy",
-                "tags": [
-                    "Message"
-                ],
-                "parameters": [
-                    {
-                        "name": "message",
-                        "in": "path",
-                        "required": true,
-                        "description": "The message ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
+                "security": []
             }
         },
-        "/payments": {
-            "get": {
-                "operationId": "payments.index",
-                "description": "Muestra todos los Payments de un usuario.",
-                "summary": "Show All Payments",
-                "tags": [
-                    "Payment"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`PaymentCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/PaymentCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
+        "/auth/register/verify-phone": {
             "post": {
-                "operationId": "payments.store",
-                "description": "Crea un Payment.",
-                "summary": "Create Payment",
+                "operationId": "registerVerification.verifyPhone",
+                "description": "Esta ruta se encarga de verificar si el telefono ingresado ya esta en uso, si no esta en uso envia codigo para verificarlo. Falta terminar la funcion para que envie el sms",
+                "summary": "Verify Phone Request",
                 "tags": [
-                    "Payment"
+                    "Register"
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PaymentStoreRequest"
+                                "type": "object",
+                                "properties": {
+                                    "phone": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "phone"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "`PaymentResource`",
+                        "description": "Enviar SMS con Twilio (todavia no funca)\n$twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));\n$twilio->messages->create($phone, [\n'from' => env('TWILIO_PHONE_NUMBER'),\n'body' => \"Tu c\u00f3digo de verificaci\u00f3n es: $phoneCode\"\n]);",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/PaymentResource"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "C\u00f3digo enviado"
                                         }
                                     },
                                     "required": [
-                                        "data"
+                                        "message"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/payments/{payment}": {
-            "get": {
-                "operationId": "payments.show",
-                "description": "Muestra un Payment especifico.",
-                "summary": "Show Payment",
-                "tags": [
-                    "Payment"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment",
-                        "in": "path",
-                        "required": true,
-                        "description": "The payment ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`PaymentResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/PaymentResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "payments.update",
-                "description": "Actualiza un Payment especifico.",
-                "summary": "Update Payment",
-                "tags": [
-                    "Payment"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment",
-                        "in": "path",
-                        "required": true,
-                        "description": "The payment ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PaymentUpdateRequest"
-                            }
-                        }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "`PaymentResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/PaymentResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
+                "security": []
             }
         },
-        "/ratings": {
-            "get": {
-                "operationId": "ratings.index",
-                "description": "Muestra todos los ratings de un usuario especifico",
-                "summary": "Show All Ratings",
-                "tags": [
-                    "Rating"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`RatingCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RatingCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
+        "/auth/register/verify-email-token": {
             "post": {
-                "operationId": "ratings.store",
-                "description": "Crea un rating de un usuario especifico",
-                "summary": "Create Rating",
+                "operationId": "registerVerification.verifyEmailToken",
+                "description": "Esta ruta verifica que el token ingresado proviene del mail asi dando el \"ok\" para utilizarlo en Registration Request.",
+                "summary": "Verify Email Token Request",
                 "tags": [
-                    "Rating"
+                    "Register"
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RatingStoreRequest"
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "code"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "`RatingResource`",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/RatingResource"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Email verificado correctamente"
                                         }
                                     },
                                     "required": [
-                                        "data"
+                                        "message"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/ratings/{rating}": {
-            "get": {
-                "operationId": "ratings.show",
-                "description": "Muestra un rating especifico de un usuario especifico",
-                "summary": "Show Rating",
-                "tags": [
-                    "Rating"
-                ],
-                "parameters": [
-                    {
-                        "name": "rating",
-                        "in": "path",
-                        "required": true,
-                        "description": "The rating ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`RatingResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/RatingResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "ratings.update",
-                "description": "Actualiza un rating especifico de un usuario especifico",
-                "summary": "Update Rating",
-                "tags": [
-                    "Rating"
-                ],
-                "parameters": [
-                    {
-                        "name": "rating",
-                        "in": "path",
-                        "required": true,
-                        "description": "The rating ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/RatingUpdateRequest"
-                            }
-                        }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "`RatingResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/RatingResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "ratings.destroy",
-                "description": "Elimina un rating especifico de un usuario especifico",
-                "summary": "Delete Rating",
-                "tags": [
-                    "Rating"
-                ],
-                "parameters": [
-                    {
-                        "name": "rating",
-                        "in": "path",
-                        "required": true,
-                        "description": "The rating ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
+                "security": []
             }
         },
-        "/reservations": {
-            "get": {
-                "operationId": "reservations.index",
-                "description": "Muestra todas las reservas de un usuario especifico",
-                "summary": "Show All Reservations",
-                "tags": [
-                    "Reservation"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`ReservationCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ReservationCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
+        "/auth/register/verify-phone-token": {
             "post": {
-                "operationId": "reservations.store",
-                "description": "Crea una reserva de un viaje",
-                "summary": "Create Reservation",
+                "operationId": "registerVerification.verifyPhoneToken",
+                "description": "Esta ruta verifica que el token ingresado proviene del telefono asi dando el \"ok\" para utilizarlo en Registration Request.",
+                "summary": "Verify Phone Token Request",
                 "tags": [
-                    "Reservation"
+                    "Register"
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ReservationStoreRequest"
+                                "type": "object",
+                                "properties": {
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "phone",
+                                    "code"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "`ReservationResource`",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/ReservationResource"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tel\u00e9fono verificado correctamente"
                                         }
                                     },
                                     "required": [
-                                        "data"
+                                        "message"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/reservations/{reservation}": {
-            "get": {
-                "operationId": "reservations.show",
-                "description": "Muestra una reserva especifica de un usuario especifico",
-                "summary": "Show Reservation",
-                "tags": [
-                    "Reservation"
-                ],
-                "parameters": [
-                    {
-                        "name": "reservation",
-                        "in": "path",
-                        "required": true,
-                        "description": "The reservation ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`ReservationResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/ReservationResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "reservations.update",
-                "description": "Actualiza una reserva especifica",
-                "summary": "Update Reservation",
-                "tags": [
-                    "Reservation"
-                ],
-                "parameters": [
-                    {
-                        "name": "reservation",
-                        "in": "path",
-                        "required": true,
-                        "description": "The reservation ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ReservationUpdateRequest"
-                            }
-                        }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "`ReservationResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/ReservationResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "reservations.destroy",
-                "description": "Elimina una Reservation",
-                "summary": "Delete Reservation",
-                "tags": [
-                    "Reservation"
-                ],
-                "parameters": [
-                    {
-                        "name": "reservation",
-                        "in": "path",
-                        "required": true,
-                        "description": "The reservation ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
+                "security": []
             }
         },
-        "/tags": {
-            "get": {
-                "operationId": "tags.index",
-                "description": "Muestra todas las etiquetas",
-                "summary": "Show All Tags",
-                "tags": [
-                    "Tag"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`TagCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TagCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
+        "/auth/register/verify-identity": {
             "post": {
-                "operationId": "tags.store",
-                "description": "Crea una etiqueta",
-                "summary": "Create Tag",
+                "operationId": "registerVerification.verifyIdentity",
+                "description": "Esta ruta verifica que la identidad del usuario mediante la API de renaper asi dando el \"ok\" para utilizarlo en Registration Request. FALTA TERMINARLA",
+                "summary": "Verify Identity Request",
                 "tags": [
-                    "Tag"
+                    "Register"
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/TagStoreRequest"
+                                "type": "object",
+                                "properties": {
+                                    "dni": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "dni"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "`TagResource`",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TagResource"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Identidad verificada"
                                         }
                                     },
                                     "required": [
-                                        "data"
+                                        "message"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/tags/{tag}": {
-            "get": {
-                "operationId": "tags.show",
-                "description": "Muestra una etiqueta especifica.",
-                "summary": "Show Tag",
-                "tags": [
-                    "Tag"
-                ],
-                "parameters": [
-                    {
-                        "name": "tag",
-                        "in": "path",
-                        "required": true,
-                        "description": "The tag ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`TagResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TagResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "tags.update",
-                "description": "Actualiza una etiqueta especifica.",
-                "summary": "Update Tag",
-                "tags": [
-                    "Tag"
-                ],
-                "parameters": [
-                    {
-                        "name": "tag",
-                        "in": "path",
-                        "required": true,
-                        "description": "The tag ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TagUpdateRequest"
-                            }
-                        }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "`TagResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TagResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "tags.destroy",
-                "description": "Elimina una etiqueta especifica.",
-                "summary": "Delete Tag",
-                "tags": [
-                    "Tag"
-                ],
-                "parameters": [
-                    {
-                        "name": "tag",
-                        "in": "path",
-                        "required": true,
-                        "description": "The tag ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
+                "security": []
             }
         },
-        "/transactions": {
-            "get": {
-                "operationId": "transactions.index",
-                "description": "Muestra todas las transacciones de un usuario especifico.",
-                "summary": "Show All Transactions",
-                "tags": [
-                    "Transaction"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`TransactionCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TransactionCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
+        "/auth/register/verify-password": {
             "post": {
-                "operationId": "transactions.store",
-                "description": "Crea una transaccion",
-                "summary": "Create Transaction",
+                "operationId": "registerVerification.verifyPassword",
+                "description": "Esta ruta verifica que la contrase\u00f1a cumple con las validaciones necesarias asi dando el \"ok\" para utilizarlo en Registration Request.",
+                "summary": "Verify Password Request",
                 "tags": [
-                    "Transaction"
+                    "Register"
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/TransactionStoreRequest"
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 8
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "password",
+                                    "password_confirmation"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "`TransactionResource`",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TransactionResource"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Contrase\u00f1a v\u00e1lida"
                                         }
                                     },
                                     "required": [
-                                        "data"
+                                        "message"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/transactions/{transaction}": {
-            "get": {
-                "operationId": "transactions.show",
-                "description": "Muestra una transaccion especifica",
-                "summary": "Show Transaction",
-                "tags": [
-                    "Transaction"
-                ],
-                "parameters": [
-                    {
-                        "name": "transaction",
-                        "in": "path",
-                        "required": true,
-                        "description": "The transaction ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`TransactionResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TransactionResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "transactions.update",
-                "description": "Actualiza una transaccion especifica",
-                "summary": "Update Transaction",
-                "tags": [
-                    "Transaction"
-                ],
-                "parameters": [
-                    {
-                        "name": "transaction",
-                        "in": "path",
-                        "required": true,
-                        "description": "The transaction ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TransactionUpdateRequest"
-                            }
-                        }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "`TransactionResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TransactionResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
+                "security": []
             }
         },
-        "/trips": {
-            "get": {
-                "operationId": "trips.index",
-                "description": "Muestra todos los viajes.",
-                "summary": "Show All Trips",
-                "tags": [
-                    "Trip"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`TripCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TripCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
+        "/auth/register": {
             "post": {
-                "operationId": "trips.store",
-                "description": "Crea un viaje.",
-                "summary": "Create Trip",
+                "operationId": "register",
+                "description": "Esta ruta se encarga de manejar las solicitudes de registro. Posterior a ellas existen las RegisterVerifications para ahorrar error en la request.",
+                "summary": "Registration Request",
                 "tags": [
-                    "Trip"
+                    "Register"
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/TripStoreRequest"
+                                "type": "object",
+                                "properties": {
+                                    "dni": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    },
+                                    "photo": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "format": "binary",
+                                        "contentMediaType": "application/octet-stream",
+                                        "maxLength": 2048
+                                    },
+                                    "firstname": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "cvu": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 50
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "dni",
+                                    "firstname",
+                                    "lastname",
+                                    "email",
+                                    "phone",
+                                    "password",
+                                    "password_confirmation"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "`TripResource`",
+                    "201": {
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TripResource"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario creado correctamente"
+                                        },
+                                        "user": {
+                                            "type": "string"
+                                        },
+                                        "path": {
+                                            "type": "string"
                                         }
                                     },
                                     "required": [
-                                        "data"
+                                        "message",
+                                        "user",
+                                        "path"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/trips/{trip}": {
-            "get": {
-                "operationId": "trips.show",
-                "description": "Muestra un viaje especifico.",
-                "summary": "Show Trip",
-                "tags": [
-                    "Trip"
-                ],
-                "parameters": [
-                    {
-                        "name": "trip",
-                        "in": "path",
-                        "required": true,
-                        "description": "The trip ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`TripResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TripResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "trips.update",
-                "description": "Actualiza un viaje especifico.",
-                "summary": "Update Trip",
-                "tags": [
-                    "Trip"
-                ],
-                "parameters": [
-                    {
-                        "name": "trip",
-                        "in": "path",
-                        "required": true,
-                        "description": "The trip ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TripUpdateRequest"
-                            }
-                        }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "`TripResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/TripResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "trips.destroy",
-                "description": "Elimina un viaje especifico.",
-                "summary": "Delete Trip",
-                "tags": [
-                    "Trip"
-                ],
-                "parameters": [
-                    {
-                        "name": "trip",
-                        "in": "path",
-                        "required": true,
-                        "description": "The trip ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
-        "/users": {
-            "get": {
-                "operationId": "users.index",
-                "description": "Muestra todos los usuarios",
-                "summary": "Show All Users",
-                "tags": [
-                    "User"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`UserCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UserCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "post": {
-                "operationId": "users.store",
-                "summary": "Create User",
-                "deprecated": true,
-                "tags": [
-                    "User"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UserStoreRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`UserResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/UserResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/users/{user}": {
-            "get": {
-                "operationId": "users.show",
-                "description": "Muestra un usuario especifico.",
-                "summary": "Show User",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
-                        "description": "The user ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`UserResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/UserResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "users.update",
-                "description": "Actualiza un usuario especifico.",
-                "summary": "Update User",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
-                        "description": "The user ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UserUpdateRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`UserResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/UserResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "users.destroy",
-                "description": "Elimina un usuario especifico.",
-                "summary": "Delete User",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
-                        "description": "The user ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
-        "/vehicles": {
-            "get": {
-                "operationId": "vehicles.index",
-                "description": "Muestra todos los vehiculos.",
-                "summary": "Show All Vehicles",
-                "tags": [
-                    "Vehicle"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`VehicleCollection`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/VehicleCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "post": {
-                "operationId": "vehicles.store",
-                "description": "Crea un vehiculo.",
-                "summary": "Create Vehicle",
-                "tags": [
-                    "Vehicle"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/VehicleStoreRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`VehicleResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/VehicleResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            }
-        },
-        "/vehicles/{vehicle}": {
-            "get": {
-                "operationId": "vehicles.show",
-                "description": "Muestra un vehiculo especifico.",
-                "summary": "Show Vehicle",
-                "tags": [
-                    "Vehicle"
-                ],
-                "parameters": [
-                    {
-                        "name": "vehicle",
-                        "in": "path",
-                        "required": true,
-                        "description": "The vehicle ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "`VehicleResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/VehicleResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "vehicles.update",
-                "description": "Actualiza un vehiculo especifico.",
-                "summary": "Update Vehicle",
-                "tags": [
-                    "Vehicle"
-                ],
-                "parameters": [
-                    {
-                        "name": "vehicle",
-                        "in": "path",
-                        "required": true,
-                        "description": "The vehicle ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/VehicleUpdateRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "`VehicleResource`",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/VehicleResource"
-                                        }
-                                    },
-                                    "required": [
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/AuthorizationException"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "vehicles.destroy",
-                "description": "Elimina un vehiculo especifico.",
-                "summary": "Delete Vehicle",
-                "tags": [
-                    "Vehicle"
-                ],
-                "parameters": [
-                    {
-                        "name": "vehicle",
-                        "in": "path",
-                        "required": true,
-                        "description": "The vehicle ID",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
+                "security": []
             }
         }
     },
@@ -3198,146 +762,6 @@
             }
         },
         "schemas": {
-            "AllowCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/AllowResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "AllowCollection"
-            },
-            "AllowResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "tag_id": {
-                        "type": "string"
-                    },
-                    "trip_id": {
-                        "type": "string"
-                    },
-                    "trip": {
-                        "$ref": "#/components/schemas/TripResource"
-                    }
-                },
-                "required": [
-                    "id",
-                    "tag_id",
-                    "trip_id"
-                ],
-                "title": "AllowResource"
-            },
-            "AllowStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "tag_id": {
-                        "type": "integer"
-                    },
-                    "trip_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "tag_id",
-                    "trip_id"
-                ],
-                "title": "AllowStoreRequest"
-            },
-            "AllowUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "tag_id": {
-                        "type": "integer"
-                    },
-                    "trip_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "tag_id",
-                    "trip_id"
-                ],
-                "title": "AllowUpdateRequest"
-            },
-            "ChatCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ChatResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "ChatCollection"
-            },
-            "ChatResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "user1_id": {
-                        "type": "integer"
-                    },
-                    "user2_id": {
-                        "type": "integer"
-                    },
-                    "messages": {
-                        "$ref": "#/components/schemas/MessageCollection"
-                    }
-                },
-                "required": [
-                    "id",
-                    "user1_id",
-                    "user2_id"
-                ],
-                "title": "ChatResource"
-            },
-            "ChatStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "user1_id": {
-                        "type": "integer"
-                    },
-                    "user2_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "user1_id",
-                    "user2_id"
-                ],
-                "title": "ChatStoreRequest"
-            },
-            "ChatUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "user1_id": {
-                        "type": "integer"
-                    },
-                    "user2_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "user1_id",
-                    "user2_id"
-                ],
-                "title": "ChatUpdateRequest"
-            },
             "CommissionCollection": {
                 "type": "object",
                 "properties": {
@@ -3381,93 +805,6 @@
                 ],
                 "title": "CommissionStoreRequest"
             },
-            "DriverBlockCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DriverBlockResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "DriverBlockCollection"
-            },
-            "DriverBlockResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "reason": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string"
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "id",
-                    "reason",
-                    "status",
-                    "user_id"
-                ],
-                "title": "DriverBlockResource"
-            },
-            "DriverBlockStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "reason": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "active",
-                            "removed"
-                        ]
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "reason",
-                    "status",
-                    "user_id"
-                ],
-                "title": "DriverBlockStoreRequest"
-            },
-            "DriverBlockUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "reason": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "active",
-                            "removed"
-                        ]
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "reason",
-                    "status",
-                    "user_id"
-                ],
-                "title": "DriverBlockUpdateRequest"
-            },
             "LoginRequest": {
                 "type": "object",
                 "properties": {
@@ -3487,921 +824,6 @@
                     "device_name"
                 ],
                 "title": "LoginRequest"
-            },
-            "MessageCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/MessageResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "MessageCollection"
-            },
-            "MessageResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "chat_id": {
-                        "type": "integer"
-                    },
-                    "sender_id": {
-                        "type": "integer"
-                    },
-                    "message": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "chat_id",
-                    "sender_id",
-                    "message",
-                    "status"
-                ],
-                "title": "MessageResource"
-            },
-            "MessageStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "message": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "message"
-                ],
-                "title": "MessageStoreRequest"
-            },
-            "MessageUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "message": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "message"
-                ],
-                "title": "MessageUpdateRequest"
-            },
-            "PaymentCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/PaymentResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "PaymentCollection"
-            },
-            "PaymentResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "transaction": {
-                        "$ref": "#/components/schemas/TransactionResource"
-                    },
-                    "reservation_id": {
-                        "type": "integer"
-                    },
-                    "amount": {
-                        "type": "string"
-                    },
-                    "payment_method": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string"
-                    },
-                    "reservation": {
-                        "$ref": "#/components/schemas/ReservationResource"
-                    }
-                },
-                "required": [
-                    "id",
-                    "reservation_id",
-                    "amount",
-                    "payment_method",
-                    "status"
-                ],
-                "title": "PaymentResource"
-            },
-            "PaymentStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "transaction": {
-                        "type": "integer"
-                    },
-                    "reservation_id": {
-                        "type": "integer"
-                    },
-                    "amount": {
-                        "type": "number"
-                    },
-                    "payment_method": {
-                        "type": "string",
-                        "enum": [
-                            "cash",
-                            "mercadopago"
-                        ]
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "pending",
-                            "completed",
-                            "failed"
-                        ]
-                    }
-                },
-                "required": [
-                    "transaction",
-                    "reservation_id",
-                    "amount",
-                    "payment_method",
-                    "status"
-                ],
-                "title": "PaymentStoreRequest"
-            },
-            "PaymentUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "transaction": {
-                        "type": "integer"
-                    },
-                    "reservation_id": {
-                        "type": "integer"
-                    },
-                    "amount": {
-                        "type": "number"
-                    },
-                    "payment_method": {
-                        "type": "string",
-                        "enum": [
-                            "cash",
-                            "mercadopago"
-                        ]
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "pending",
-                            "completed",
-                            "failed"
-                        ]
-                    }
-                },
-                "required": [
-                    "transaction",
-                    "reservation_id",
-                    "amount",
-                    "payment_method",
-                    "status"
-                ],
-                "title": "PaymentUpdateRequest"
-            },
-            "RatingCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/RatingResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "RatingCollection"
-            },
-            "RatingResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "trip_id": {
-                        "type": "integer"
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    },
-                    "driver_id": {
-                        "type": "integer"
-                    },
-                    "rating": {
-                        "type": "integer"
-                    },
-                    "comment": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "trip_id",
-                    "user_id",
-                    "driver_id",
-                    "rating",
-                    "comment"
-                ],
-                "title": "RatingResource"
-            },
-            "RatingStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "rating": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "rating"
-                ],
-                "title": "RatingStoreRequest"
-            },
-            "RatingUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "rating": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "rating"
-                ],
-                "title": "RatingUpdateRequest"
-            },
-            "ReservationCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ReservationResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "ReservationCollection"
-            },
-            "ReservationResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    },
-                    "trip_id": {
-                        "type": "integer"
-                    },
-                    "status": {
-                        "type": "string"
-                    },
-                    "trip": {
-                        "$ref": "#/components/schemas/TripResource"
-                    },
-                    "payment": {
-                        "$ref": "#/components/schemas/PaymentResource"
-                    }
-                },
-                "required": [
-                    "id",
-                    "user_id",
-                    "trip_id",
-                    "status"
-                ],
-                "title": "ReservationResource"
-            },
-            "ReservationStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "type": "integer"
-                    },
-                    "trip_id": {
-                        "type": "integer"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "pending",
-                            "confirmed",
-                            "canceled"
-                        ]
-                    }
-                },
-                "required": [
-                    "user_id",
-                    "trip_id",
-                    "status"
-                ],
-                "title": "ReservationStoreRequest"
-            },
-            "ReservationUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "type": "integer"
-                    },
-                    "trip_id": {
-                        "type": "integer"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "pending",
-                            "confirmed",
-                            "canceled"
-                        ]
-                    }
-                },
-                "required": [
-                    "user_id",
-                    "trip_id",
-                    "status"
-                ],
-                "title": "ReservationUpdateRequest"
-            },
-            "TagCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/TagResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "TagCollection"
-            },
-            "TagResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "allows": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "name",
-                    "allows"
-                ],
-                "title": "TagResource"
-            },
-            "TagStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "maxLength": 20
-                    }
-                },
-                "required": [
-                    "name"
-                ],
-                "title": "TagStoreRequest"
-            },
-            "TagUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "maxLength": 20
-                    }
-                },
-                "required": [
-                    "name"
-                ],
-                "title": "TagUpdateRequest"
-            },
-            "TransactionCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/TransactionResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "TransactionCollection"
-            },
-            "TransactionResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "transaction": {
-                        "type": "integer"
-                    },
-                    "payment_id": {
-                        "type": "integer"
-                    },
-                    "driver_id": {
-                        "type": "integer"
-                    },
-                    "total_amount": {
-                        "type": "string"
-                    },
-                    "company_final_amount": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string"
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "id",
-                    "transaction",
-                    "payment_id",
-                    "driver_id",
-                    "total_amount",
-                    "company_final_amount",
-                    "status",
-                    "user_id"
-                ],
-                "title": "TransactionResource"
-            },
-            "TransactionStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "transaction": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "transaction"
-                ],
-                "title": "TransactionStoreRequest"
-            },
-            "TransactionUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "transaction": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "transaction"
-                ],
-                "title": "TransactionUpdateRequest"
-            },
-            "TripCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/TripResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "TripCollection"
-            },
-            "TripResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "vehicle_id": {
-                        "type": "integer"
-                    },
-                    "origin": {
-                        "type": "string"
-                    },
-                    "destination": {
-                        "type": "string"
-                    },
-                    "date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "available_seats": {
-                        "type": "integer"
-                    },
-                    "price": {
-                        "type": "string"
-                    },
-                    "ratings": {
-                        "$ref": "#/components/schemas/RatingCollection"
-                    },
-                    "vehicle": {
-                        "$ref": "#/components/schemas/VehicleResource"
-                    }
-                },
-                "required": [
-                    "id",
-                    "vehicle_id",
-                    "origin",
-                    "destination",
-                    "date",
-                    "available_seats",
-                    "price"
-                ],
-                "title": "TripResource"
-            },
-            "TripStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "vehicle_id": {
-                        "type": "integer"
-                    },
-                    "origin": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
-                    "destination": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
-                    "date": {
-                        "type": "string"
-                    },
-                    "available_seats": {
-                        "type": "integer"
-                    },
-                    "price": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "vehicle_id",
-                    "origin",
-                    "destination",
-                    "date",
-                    "available_seats",
-                    "price"
-                ],
-                "title": "TripStoreRequest"
-            },
-            "TripUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "vehicle_id": {
-                        "type": "integer"
-                    },
-                    "origin": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
-                    "destination": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
-                    "date": {
-                        "type": "string"
-                    },
-                    "available_seats": {
-                        "type": "integer"
-                    },
-                    "price": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "vehicle_id",
-                    "origin",
-                    "destination",
-                    "date",
-                    "available_seats",
-                    "price"
-                ],
-                "title": "TripUpdateRequest"
-            },
-            "UserCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/UserResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "UserCollection"
-            },
-            "UserResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "dni": {
-                        "type": "string"
-                    },
-                    "firstname": {
-                        "type": "string"
-                    },
-                    "lastname": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "phone": {
-                        "type": "string"
-                    },
-                    "validated": {
-                        "type": "boolean"
-                    },
-                    "cvu": {
-                        "type": "string"
-                    },
-                    "pending_balance": {
-                        "type": "string"
-                    },
-                    "driverBlocks": {
-                        "$ref": "#/components/schemas/DriverBlockCollection"
-                    }
-                },
-                "required": [
-                    "id",
-                    "dni",
-                    "firstname",
-                    "lastname",
-                    "email",
-                    "phone",
-                    "validated",
-                    "cvu",
-                    "pending_balance"
-                ],
-                "title": "UserResource"
-            },
-            "UserStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "dni": {
-                        "type": "string",
-                        "maxLength": 20
-                    },
-                    "firstname": {
-                        "type": "string",
-                        "maxLength": 100
-                    },
-                    "lastname": {
-                        "type": "string",
-                        "maxLength": 100
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "maxLength": 100
-                    },
-                    "phone": {
-                        "type": "string",
-                        "maxLength": 20
-                    },
-                    "password": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
-                    "validated": {
-                        "type": "string"
-                    },
-                    "cvu": {
-                        "type": "string",
-                        "maxLength": 22
-                    },
-                    "pending_balance": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "dni",
-                    "firstname",
-                    "lastname",
-                    "email",
-                    "phone",
-                    "password",
-                    "validated",
-                    "cvu",
-                    "pending_balance"
-                ],
-                "title": "UserStoreRequest"
-            },
-            "UserUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "dni": {
-                        "type": "string",
-                        "maxLength": 20
-                    },
-                    "firstname": {
-                        "type": "string",
-                        "maxLength": 100
-                    },
-                    "lastname": {
-                        "type": "string",
-                        "maxLength": 100
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "maxLength": 100
-                    },
-                    "phone": {
-                        "type": "string",
-                        "maxLength": 20
-                    },
-                    "password": {
-                        "type": "string",
-                        "maxLength": 255
-                    },
-                    "validated": {
-                        "type": "string"
-                    },
-                    "cvu": {
-                        "type": "string",
-                        "maxLength": 22
-                    },
-                    "pending_balance": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "dni",
-                    "firstname",
-                    "lastname",
-                    "email",
-                    "phone",
-                    "password",
-                    "validated",
-                    "cvu",
-                    "pending_balance"
-                ],
-                "title": "UserUpdateRequest"
-            },
-            "VehicleCollection": {
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/VehicleResource"
-                        }
-                    }
-                },
-                "required": [
-                    "data"
-                ],
-                "title": "VehicleCollection"
-            },
-            "VehicleResource": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "user_id": {
-                        "type": "integer"
-                    },
-                    "brand": {
-                        "type": "string"
-                    },
-                    "model": {
-                        "type": "string"
-                    },
-                    "year": {
-                        "type": "integer"
-                    },
-                    "license_plate": {
-                        "type": "string"
-                    },
-                    "dnrpa_approved": {
-                        "type": "boolean"
-                    },
-                    "trips": {
-                        "$ref": "#/components/schemas/TripCollection"
-                    },
-                    "user": {
-                        "$ref": "#/components/schemas/UserResource"
-                    }
-                },
-                "required": [
-                    "id",
-                    "user_id",
-                    "brand",
-                    "model",
-                    "year",
-                    "license_plate",
-                    "dnrpa_approved"
-                ],
-                "title": "VehicleResource"
-            },
-            "VehicleStoreRequest": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "type": "integer"
-                    },
-                    "brand": {
-                        "type": "string",
-                        "maxLength": 50
-                    },
-                    "model": {
-                        "type": "string",
-                        "maxLength": 50
-                    },
-                    "year": {
-                        "type": "integer"
-                    },
-                    "license_plate": {
-                        "type": "string",
-                        "maxLength": 10
-                    },
-                    "dnrpa_approved": {
-                        "type": "boolean"
-                    }
-                },
-                "required": [
-                    "user_id",
-                    "brand",
-                    "model",
-                    "year",
-                    "license_plate",
-                    "dnrpa_approved"
-                ],
-                "title": "VehicleStoreRequest"
-            },
-            "VehicleUpdateRequest": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "type": "integer"
-                    },
-                    "brand": {
-                        "type": "string",
-                        "maxLength": 50
-                    },
-                    "model": {
-                        "type": "string",
-                        "maxLength": 50
-                    },
-                    "year": {
-                        "type": "integer"
-                    },
-                    "license_plate": {
-                        "type": "string",
-                        "maxLength": 10
-                    },
-                    "dnrpa_approved": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "user_id",
-                    "brand",
-                    "model",
-                    "year",
-                    "license_plate",
-                    "dnrpa_approved"
-                ],
-                "title": "VehicleUpdateRequest"
             }
         },
         "responses": {
@@ -4456,25 +878,6 @@
             },
             "AuthenticationException": {
                 "description": "Unauthenticated",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "description": "Error overview."
-                                }
-                            },
-                            "required": [
-                                "message"
-                            ]
-                        }
-                    }
-                }
-            },
-            "ModelNotFoundException": {
-                "description": "Not found",
                 "content": {
                     "application/json": {
                         "schema": {

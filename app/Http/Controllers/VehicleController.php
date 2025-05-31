@@ -9,6 +9,9 @@ use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
 
 class VehicleController extends Controller
 {
@@ -17,6 +20,7 @@ class VehicleController extends Controller
      * 
      * Muestra todos los vehiculos.
      */
+
     public function index(Request $request)
     {
         $vehicles = Vehicle::all();
@@ -29,6 +33,7 @@ class VehicleController extends Controller
      * 
      * Crea un vehiculo.
      */
+
     public function store(VehicleStoreRequest $request)
     {
         $vehicle = Vehicle::create($request->validated());
@@ -41,6 +46,7 @@ class VehicleController extends Controller
      * 
      * Muestra un vehiculo especifico.
      */
+
     public function show(Request $request, Vehicle $vehicle)
     {
         return new VehicleResource($vehicle);
@@ -51,6 +57,7 @@ class VehicleController extends Controller
      * 
      * Actualiza un vehiculo especifico.
      */
+
     public function update(VehicleUpdateRequest $request, Vehicle $vehicle)
     {
         $vehicle->update($request->validated());
@@ -63,6 +70,7 @@ class VehicleController extends Controller
      * 
      * Elimina un vehiculo especifico.
      */
+
     public function destroy(Request $request, Vehicle $vehicle)
     {
         $vehicle->delete();

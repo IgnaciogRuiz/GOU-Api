@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         $ignacio = User::create([
             'dni' => 46767790,
+            'profile_photo' => 'photos/nacho.png',
             'firstname' => 'Ignacio',
             'lastname' => 'Ruiz',
             'email' => fake()->safeEmail(),
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
 
         $marco = User::create([
             'dni' => 95934473,
+            'profile_photo' => 'photos/marco.jpg',
             'firstname' => 'Marco',
             'lastname' => 'Taliente',
             'email' => fake()->safeEmail(),

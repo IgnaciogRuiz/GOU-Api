@@ -3,5 +3,7 @@ type Chat @guard {
     user1: User @belongsTo(relation: "user1")
     user2: User @belongsTo(relation: "user2")
     messages: [Message!]! @hasMany
-    #other_user: User! @field(resolver: "ChatQuery@otherUser")
+    last_message: Message @field(resolver: "App\\GraphQL\\Queries\\ChatQuery@lastMessage")
+    other_user: User @field(resolver: "App\\GraphQL\\Queries\\ChatQuery@otherUser")
+    #other_user: User @field(resolver: "ChatQuery@otherUser")
 }

@@ -9,6 +9,9 @@ use App\Http\Resources\TagResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
 
 class TagController extends Controller
 {
@@ -17,6 +20,7 @@ class TagController extends Controller
      * 
      * Muestra todas las etiquetas
      */
+
     public function index(Request $request)
     {
         $tags = Tag::all();
@@ -29,6 +33,7 @@ class TagController extends Controller
      * 
      * Crea una etiqueta
      */
+
     public function store(TagStoreRequest $request)
     {
         $tag = Tag::create($request->validated());
@@ -41,6 +46,7 @@ class TagController extends Controller
      * 
      * Muestra una etiqueta especifica.
      */
+
     public function show(Request $request, Tag $tag)
     {
         return new TagResource($tag);
@@ -51,6 +57,7 @@ class TagController extends Controller
      * 
      * Actualiza una etiqueta especifica.
      */
+
     public function update(TagUpdateRequest $request, Tag $tag)
     {
         $tag->update($request->validated());
@@ -63,6 +70,7 @@ class TagController extends Controller
      * 
      * Elimina una etiqueta especifica.
      */
+
     public function destroy(Request $request, Tag $tag)
     {
         $tag->delete();

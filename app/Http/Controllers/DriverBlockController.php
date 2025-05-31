@@ -9,7 +9,9 @@ use App\Http\Resources\DriverBlockResource;
 use App\Models\DriverBlock;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
 
+#[ExcludeAllRoutesFromDocs]
 class DriverBlockController extends Controller
 {
 

@@ -9,6 +9,9 @@ use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
 
 class TripController extends Controller
 {
@@ -17,6 +20,7 @@ class TripController extends Controller
      * 
      * Muestra todos los viajes.
      */
+
     public function index(Request $request)
     {
         $trips = Trip::all();
@@ -29,6 +33,7 @@ class TripController extends Controller
      * 
      * Crea un viaje.
      */
+
     public function store(TripStoreRequest $request)
     {
         $trip = Trip::create($request->validated());
@@ -41,6 +46,7 @@ class TripController extends Controller
      * 
      * Muestra un viaje especifico.
      */
+
     public function show(Request $request, Trip $trip)
     {
         return new TripResource($trip);
@@ -51,6 +57,7 @@ class TripController extends Controller
      * 
      * Actualiza un viaje especifico.
      */
+
     public function update(TripUpdateRequest $request, Trip $trip)
     {
         $trip->update($request->validated());
@@ -58,11 +65,12 @@ class TripController extends Controller
         return new TripResource($trip);
     }
 
-     /**
+    /**
      * Delete Trip
      * 
      * Elimina un viaje especifico.
      */
+
     public function destroy(Request $request, Trip $trip)
     {
         $trip->delete();

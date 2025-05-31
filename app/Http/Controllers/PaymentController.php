@@ -9,15 +9,18 @@ use App\Http\Resources\PaymentResource;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Dedoc\Scramble\Attributes\ExcludeRouteFromDocs;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
 
 class PaymentController extends Controller
 {
-     /**
+    /**
      * Show All Payments
      * 
      * Muestra todos los Payments de un usuario.
      */
+
     public function index(Request $request)
     {
         $payments = Payment::all();
@@ -30,6 +33,7 @@ class PaymentController extends Controller
      * 
      * Crea un Payment.
      */
+
     public function store(PaymentStoreRequest $request)
     {
         $payment = Payment::create($request->validated());
@@ -42,6 +46,7 @@ class PaymentController extends Controller
      * 
      * Muestra un Payment especifico.
      */
+
     public function show(Request $request, Payment $payment)
     {
         return new PaymentResource($payment);
@@ -52,6 +57,7 @@ class PaymentController extends Controller
      * 
      * Actualiza un Payment especifico.
      */
+
     public function update(PaymentUpdateRequest $request, Payment $payment)
     {
         $payment->update($request->validated());
@@ -59,7 +65,7 @@ class PaymentController extends Controller
         return new PaymentResource($payment);
     }
 
-    #[ExcludeRouteFromDocs]
+
     public function destroy(Request $request, Payment $payment)
     {
         $payment->delete();

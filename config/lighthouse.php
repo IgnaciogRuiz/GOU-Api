@@ -189,16 +189,16 @@ return [
 
     'namespaces' => [
         'models' => ['App', 'App\\Models'],
-        'queries' => 'App\\GraphQL\\Queries',
-        'mutations' => 'App\\GraphQL\\Mutations',
-        'subscriptions' => 'App\\GraphQL\\Subscriptions',
-        'types' => 'App\\GraphQL\\Types',
-        'interfaces' => 'App\\GraphQL\\Interfaces',
-        'unions' => 'App\\GraphQL\\Unions',
-        'scalars' => 'App\\GraphQL\\Scalars',
-        'directives' => 'App\\GraphQL\\Directives',
-        'validators' => 'App\\GraphQL\\Validators',
-        'resolver' => 'App\\GraphQL\\Resolver',
+        'queries' => ['App\\GraphQL\\Queries'],
+        'mutations' => ['App\\GraphQL\\Mutations'],
+        'subscriptions' => ['App\\GraphQL\\Subscriptions'],
+        'types' => ['App\\GraphQL\\Types'],
+        'interfaces' => ['App\\GraphQL\\Interfaces'],
+        'unions' => ['App\\GraphQL\\Unions'],
+        'scalars' => ['App\\GraphQL\\Scalars'],
+        'directives' => ['App\\GraphQL\\Directives'],
+        'validators' => ['App\\GraphQL\\Validators'],
+        'resolver' => ['App\\GraphQL\\Resolver'],
     ],
 
     /*

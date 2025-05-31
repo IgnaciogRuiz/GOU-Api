@@ -9,6 +9,9 @@ use App\Http\Resources\ReservationResource;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
 
 class ReservationController extends Controller
 {
@@ -17,6 +20,7 @@ class ReservationController extends Controller
      * 
      * Muestra todas las reservas de un usuario especifico
      */
+
     public function index(Request $request)
     {
         $reservations = Reservation::all();
@@ -29,6 +33,7 @@ class ReservationController extends Controller
      * 
      * Crea una reserva de un viaje
      */
+
     public function store(ReservationStoreRequest $request)
     {
         $reservation = Reservation::create($request->validated());
@@ -41,6 +46,7 @@ class ReservationController extends Controller
      * 
      * Muestra una reserva especifica de un usuario especifico
      */
+
     public function show(Request $request, Reservation $reservation)
     {
         return new ReservationResource($reservation);
@@ -51,6 +57,7 @@ class ReservationController extends Controller
      * 
      * Actualiza una reserva especifica
      */
+
     public function update(ReservationUpdateRequest $request, Reservation $reservation)
     {
         $reservation->update($request->validated());
@@ -63,6 +70,7 @@ class ReservationController extends Controller
      * 
      * Elimina una Reservation
      */
+
     public function destroy(Request $request, Reservation $reservation)
     {
         $reservation->delete();

@@ -9,6 +9,10 @@ use App\Http\Resources\RatingResource;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
+
 
 class RatingController extends Controller
 {
@@ -17,6 +21,7 @@ class RatingController extends Controller
      * 
      * Muestra todos los ratings de un usuario especifico
      */
+
     public function index(Request $request)
     {
         $ratings = Rating::all();
@@ -29,6 +34,7 @@ class RatingController extends Controller
      * 
      * Crea un rating de un usuario especifico
      */
+
     public function store(RatingStoreRequest $request)
     {
         $rating = Rating::create($request->validated());
@@ -41,6 +47,7 @@ class RatingController extends Controller
      * 
      * Muestra un rating especifico de un usuario especifico
      */
+
     public function show(Request $request, Rating $rating)
     {
         return new RatingResource($rating);
@@ -51,6 +58,7 @@ class RatingController extends Controller
      * 
      * Actualiza un rating especifico de un usuario especifico
      */
+
     public function update(RatingUpdateRequest $request, Rating $rating)
     {
         $rating->update($request->validated());
@@ -63,6 +71,7 @@ class RatingController extends Controller
      * 
      * Elimina un rating especifico de un usuario especifico
      */
+
     public function destroy(Request $request, Rating $rating)
     {
         $rating->delete();

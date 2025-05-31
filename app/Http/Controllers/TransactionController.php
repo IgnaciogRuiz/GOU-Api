@@ -9,7 +9,9 @@ use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Dedoc\Scramble\Attributes\ExcludeRouteFromDocs;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
+
+#[ExcludeAllRoutesFromDocs]
 
 class TransactionController extends Controller
 {
@@ -18,6 +20,7 @@ class TransactionController extends Controller
      * 
      * Muestra todas las transacciones de un usuario especifico.
      */
+
     public function index(Request $request)
     {
         $transactions = Transaction::all();
@@ -30,6 +33,7 @@ class TransactionController extends Controller
      * 
      * Crea una transaccion
      */
+
     public function store(TransactionStoreRequest $request)
     {
         $transaction = Transaction::create($request->validated());
@@ -42,6 +46,7 @@ class TransactionController extends Controller
      * 
      * Muestra una transaccion especifica
      */
+
     public function show(Request $request, Transaction $transaction)
     {
         return new TransactionResource($transaction);
@@ -52,6 +57,7 @@ class TransactionController extends Controller
      * 
      * Actualiza una transaccion especifica
      */
+
     public function update(TransactionUpdateRequest $request, Transaction $transaction)
     {
         $transaction->update($request->validated());
@@ -59,7 +65,7 @@ class TransactionController extends Controller
         return new TransactionResource($transaction);
     }
 
-    #[ExcludeRouteFromDocs]
+
     public function destroy(Request $request, Transaction $transaction)
     {
         $transaction->delete();

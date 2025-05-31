@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,6 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'dni',
+        'profile_photo',
         'firstname',
         'lastname',
         'email',
@@ -49,6 +51,15 @@ class User extends Authenticatable
         'validated' => 'boolean',
         'pending_balance' => 'decimal:2',
     ];
+
+
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->profile_photo
+            ? Storage::url($this->profile_photo)
+            : null;
+    }
 
     public function vehicles(): HasMany
     {

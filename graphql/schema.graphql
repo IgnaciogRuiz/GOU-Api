@@ -1,3 +1,8 @@
+scalar DateTime
+  @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+scalar Upload
+  @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
 #import schemas/*.graphql
 
 type Mutation @guard {
@@ -80,6 +85,7 @@ type Mutation @guard {
     deleteTransaction(id: ID! @eq): Boolean! @delete(model: Transaction)
 
     #Actualizar User
+    uploadProfilePhoto(input: UploadProfilePhotoInput!): User @field(resolver: "UserResolver@uploadProfilePhoto")
     updateUser(
         id: ID!
         dni: String

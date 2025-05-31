@@ -21,6 +21,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'dni' => ['required', 'string', 'max:20', 'unique:users,dni'],
+            'photo' => 'nullable|image|max:2048',
             'firstname' => ['required', 'string', 'max:100'],
             'lastname' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:100', 'unique:users,email'],

@@ -12,7 +12,7 @@ class ChatSeeder extends Seeder
     {
         $userIds = User::pluck('id')->toArray();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 150; $i++) {
             // Elegimos dos usuarios distintos
             $user1 = fake()->randomElement($userIds);
             do {

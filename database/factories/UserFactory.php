@@ -20,11 +20,12 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
             'dni' => fake()->regexify('[0-9]{8}'),
-            'firstname' => fake()->firstname(),
-            'lastname' => fake()->lastname(),    
-            'email' => fake()->safeEmail(),
+            'firstname' => fake()->firstName(),
+            'lastname' => fake()->lastName(),
+            'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'password' => bcrypt('password'),
             'validated' => fake()->boolean(),

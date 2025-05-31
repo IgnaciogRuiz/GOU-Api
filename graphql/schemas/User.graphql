@@ -1,6 +1,7 @@
 type User @guard {
     id: ID!
     dni: String!
+    profile_photo: String @field(resolver: "App\\GraphQL\\Queries\\UserQuery@userPhoto")
     firstname: String!
     lastname: String!
     email: String!
@@ -11,10 +12,12 @@ type User @guard {
     vehicles: [Vehicle!]! @hasMany
     reservations: [Reservation!]! @hasMany
     transactions: [Transaction!]! @hasMany
-    chats: [Chat!]! @hasMany
+    chats: [Chat!]! @field(resolver: "App\\GraphQL\\Queries\\ChatQuery@userChats")
     messages: [Message!]! @hasMany
     ratings: [Rating!]! @hasMany
     driverBlocks: [DriverBlock!]! @hasMany
 }
 
-
+input UploadProfilePhotoInput {
+  photo: Upload!
+}
