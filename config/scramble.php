@@ -49,10 +49,4 @@ return [
 
     'extensions' => [],
 
-    'routes' => [
-        'exclude' => [
-            'graphql',
-            'graphql/*',
-        ],
-    ],
 ];

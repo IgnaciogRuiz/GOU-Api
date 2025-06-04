@@ -2,8 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
 
 require __DIR__ . '/auth.php';
+
+Broadcast::routes([
+    'middleware' => ['auth:api'], // para tokens de Sanctum
+]);
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
