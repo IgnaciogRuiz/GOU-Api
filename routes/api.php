@@ -6,10 +6,7 @@ use Illuminate\Support\Facades\Broadcast;
 
 require __DIR__ . '/auth.php';
 
-Broadcast::routes([
-    'middleware' => ['auth:api'], // para tokens de Sanctum
-]);
-
+Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {

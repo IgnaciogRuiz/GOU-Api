@@ -20,7 +20,6 @@ class Message extends Model
         'sender_id',
         'message',
         'status',
-        'user_id',
     ];
 
     /**
