@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Broadcast;
 
 require __DIR__ . '/auth.php';
 
-Broadcast::routes(['middleware' => ['auth:sanctum']]);
+broadcast::routes(['middleware' => ['auth:api']]);
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });

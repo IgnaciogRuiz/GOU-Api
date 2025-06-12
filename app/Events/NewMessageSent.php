@@ -3,12 +3,14 @@
 namespace App\Events;
 
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class NewMessageSent implements ShouldBroadcast
+class NewMessageSent implements ShouldBroadcastNow
 {
     use SerializesModels;
 
@@ -21,11 +23,16 @@ class NewMessageSent implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('chat.' . $this->message->chat_id);
+        return new PrivateChannel('chat.' . $this->message->chat_id);
     }
 
     public function broadcastWith()
     {
+        $user = User::find($this->message->sender_id);
+        if (!$user) {
+            Log::error('User not found for message ID: ' . $this->message->id);
+            return [];
+        }
         return [
             'id' => $this->message->id,
             'chat_id' => $this->message->chat_id,
@@ -34,7 +41,7 @@ class NewMessageSent implements ShouldBroadcast
             'created_at' => $this->message->created_at->toDateTimeString(),
             'sender' => [
                 'id' => $this->message->sender->id,
-                'name' => $this->message->sender->name,
+                'name' => $user->firstname . ' ' . $user->lastname,
             ],
         ];
     }

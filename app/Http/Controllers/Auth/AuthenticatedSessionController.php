@@ -25,15 +25,19 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('dni', $request->input('dni'))->firstOrFail();
 
-        // Eliminar tokens anteriores de este mismo device (opcional)
-        $user->tokens()->where('name', $request->device_name)->delete();
+        if ($request->device_name == 'mobile') {
+            // Eliminar tokens anteriores del mismo dispositivo
+            $user->tokens()->where('name', $request->device_name)->delete();
+        }
 
-        // Generar un token nuevo con el nombre del dispositivo
-        $token = $user->createToken($request->device_name)->plainTextToken;
+        // Crear nuevo token
+        $token = $user->createToken($request->device_name)->accessToken;
 
         return response()->json([
-            'user_id' => $user->id,
-            'token' => $token,
+            'status' => 'success',
+            'data' => [
+                'token' => $token
+            ],
         ]);
     }
 

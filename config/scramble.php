@@ -41,11 +41,6 @@ return [
 
     'enum_cases_description_strategy' => 'description',
 
-    'middleware' => [
-        'api',
-        RestrictedDocsAccess::class,
-
-    ],
 
     'extensions' => [],
 

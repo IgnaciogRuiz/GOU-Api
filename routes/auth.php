@@ -37,6 +37,6 @@ Route::prefix('/auth')->group(function () {
         ->name('password.store');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->middleware('auth:sanctum')
+        ->middleware('auth:api')
         ->name('logout');
 });

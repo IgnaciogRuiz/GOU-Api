@@ -10,7 +10,7 @@ Esta API está diseñada con **GraphQL** sobre REST para brindar flexibilidad en
 
 -   **GraphQL**: consultas flexibles que permiten pedir exactamente los datos necesarios.
 -   **Rest**: consultas a endpoint definidos.
--   **Autenticación y autorización** mediante middleware Sanctum .
+-   **Autenticación y autorización** mediante middleware de Passport .
 -   Manejo de usuarios, vehículos, viajes, reservas, calificaciones y más.
 -   Relaciones entre modelos con resolvers automáticos (`@hasMany`, `@belongsTo`, `@belongsToMany`).
 -   Validación y autorización integradas para proteger los endpoints.
@@ -24,7 +24,7 @@ Esta API está diseñada con **GraphQL** sobre REST para brindar flexibilidad en
 -   **Nuwave Lighthouse** para GraphQL en Laravel
 -   **MySQL** como base de datos
 -   **GraphQL** para la comunicación entre cliente y servidor
--   **Sanctum** para la autenticacion por API Tokens
+-   **Passport** para la autenticacion por API Tokens
 -   **Blueprint** para la creacion de modelos controladores y migraciones
 -   **Scramble** para generae la documentacion del REST
 

@@ -7,7 +7,6 @@ use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
-use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -22,7 +21,6 @@ final class VehicleControllerTest extends TestCase
     public function index_behaves_as_expected(): void
     {
         $user = User::factory()->create();
-        Sanctum::actingAs($user);
 
         $vehicles = Vehicle::factory()->count(3)->create();
 
@@ -50,7 +48,6 @@ final class VehicleControllerTest extends TestCase
     public function store_saves(): void
     {
         $user = User::factory()->create();
-        Sanctum::actingAs($user);
 
         $data = [
             'user_id' => $user->id,
@@ -73,7 +70,6 @@ final class VehicleControllerTest extends TestCase
     public function show_behaves_as_expected(): void
     {
         $user = User::factory()->create();
-        Sanctum::actingAs($user);
 
         $vehicle = Vehicle::factory()->create();
 
@@ -99,7 +95,6 @@ final class VehicleControllerTest extends TestCase
     public function update_behaves_as_expected(): void
     {
         $user = User::factory()->create();
-        Sanctum::actingAs($user);
 
         $vehicle = Vehicle::factory()->create();
         $newUser = User::factory()->create();
@@ -129,7 +124,6 @@ final class VehicleControllerTest extends TestCase
     public function destroy_deletes_and_responds_with(): void
     {
         $user = User::factory()->create();
-        Sanctum::actingAs($user);
 
         $vehicle = Vehicle::factory()->create();
 
