@@ -1,6 +1,7 @@
 enum MessageStatus {
-    sent
-    read
+    SENT @enum(value: "sent")
+    DELIVERED @enum(value: "delivered")
+    READ @enum(value: "read")
 }
 
 type Message @guard {

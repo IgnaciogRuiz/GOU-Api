@@ -32,3 +32,10 @@ input UpdateTripInput {
     vehicle_id: ID
     tagIds: [ID!]
 }
+
+input TripFilter {
+  origin: String
+  destination: String
+  date: String
+  tagIds: [ID!]
+}

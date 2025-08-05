@@ -9,6 +9,8 @@ type User @guard {
     validated: Boolean!
     cvu: String!
     pending_balance: String!
+    created_at: DateTime!
+    ratingRatio: Float! @field(resolver: "App\\GraphQL\\Queries\\RatingQuery@userRatingRatio")
     vehicles: [Vehicle!]! @hasMany
     reservations: [Reservation!]! @hasMany
     transactions: [Transaction!]! @hasMany
@@ -16,6 +18,17 @@ type User @guard {
     messages: [Message!]! @hasMany
     ratings: [Rating!]! @hasMany
     driverBlocks: [DriverBlock!]! @hasMany
+}
+
+extend type User @guard {
+  travelStats: TravelStats! @field(resolver: "App\\GraphQL\\Queries\\TripQuery@userTravelStats")
+}
+
+type TravelStats {
+  totalTrips: Int!
+  publishedTrips: Int!
+  reservedTrips: Int!
+  totalDistanceKm: Float!
 }
 
 input UploadProfilePhotoInput {

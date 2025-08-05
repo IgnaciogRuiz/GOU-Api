@@ -29,7 +29,12 @@ type Mutation @guard {
         message: String!
         status: MessageStatus!
     ): Message! @field(resolver: "MessageResolver@createMessage")
-    updateMessage(id: ID!, status: MessageStatus): Message! @update
+    updateMessage(
+        id: ID!
+        message: String
+        status: MessageStatus
+    ): Message! @field(resolver: "MessageResolver@updateMessage")
+    markAsRead(id: ID!): Message! @field(resolver: "MessageResolver@markAsRead")
     deleteMessage(id: ID! @eq): Boolean! @delete(model: Message)
 
     #Payments
@@ -168,7 +173,7 @@ type Query @guard {
     transaction(id: ID @eq): Transaction @find(model: "Transaction")
 
     # TRIPS
-    trips: [Trip!]! @all(model: "Trip")
+    trips(filter: TripFilter): [Trip!]! @field(resolver: "TripQuery@filter")
     trip(id: ID @eq): Trip @find(model: "Trip")
 
     # USERS
@@ -178,4 +183,23 @@ type Query @guard {
     # VEHICLES
     vehicles: [Vehicle!]! @all(model: "Vehicle")
     vehicle(id: ID @eq): Vehicle @find(model: "Vehicle")
+}
+
+type DashboardData {
+  profile_photo: String
+  reservations: [Reservation!]!
+  published_trips: [Trip!]!
+  recent_activity: [ActivityEvent!]!
+}
+
+extend type Query @guard {
+  dashboardData: DashboardData @field(resolver: "DashboardQuery@data")
+}
+
+type ActivityEvent {
+  title: String!
+  description: String!
+  time: String! # Podés devolver un ISO o un "2 days ago" formateado
+  icon: String!
+  iconColor: String!
 }

@@ -2,11 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Broadcast;
 
 require __DIR__ . '/auth.php';
-
-broadcast::routes(['middleware' => ['auth:api']]);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {

@@ -14,6 +14,6 @@ class UserQuery
     }
     public function userPhoto(User $user)
     {
-        return Storage::url($user->profile_photo);
+        return $user->profile_photo;
     }
 }
