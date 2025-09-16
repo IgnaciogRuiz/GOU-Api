@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         // Crear nuevo token
-        $token = $user->createToken($request->device_name)->accessToken;
+        $token = $user->createToken('mobile')->plainTextToken;
 
         return response()->json([
             'status' => 'success',
