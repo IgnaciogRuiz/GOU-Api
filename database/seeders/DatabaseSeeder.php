@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Tag;
 use App\Models\Vehicle;
 use App\Models\Commission;
+use App\Models\Chat;
+use App\Models\Message;
 use App\Models\Payment;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +47,20 @@ class DatabaseSeeder extends Seeder
             'validated' => fake()->boolean(),
             'cvu' => fake()->regexify('[0-9]{22}'),
             'pending_balance' => 0,
+        ]);
+
+        $chatIgnacioMarco = Chat::create([
+            'user1_id' => $ignacio->id,
+            'user2_id' => $marco->id,  // puede ser el creador del chat
+        ]);
+
+
+        // Opcional: crear un mensaje inicial
+        Message::create([
+            'chat_id' => $chatIgnacioMarco->id,
+            'sender_id' => $ignacio->id,
+            'message' => 'Hola Marco, ¡este es nuestro primer chat!',
+            'status' => 'SENT',
         ]);
 
 

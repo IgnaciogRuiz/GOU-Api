@@ -151,6 +151,8 @@ type Query @guard {
     # MESSAGES
     messages: [Message!]! @all(model: "Message")
     message(id: ID @eq): Message @find(model: "Message")
+    getMessages(chat_id: ID!): [Message!]! @field(resolver: "MessageQuery@getMessages")
+    
 
     # PAYMENTS
     payments: [Payment!]! @all(model: "Payment")

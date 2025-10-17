@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Chats;
 
 use App\Models\Message;
 use App\Models\User;
@@ -19,6 +19,7 @@ class NewMessageSent implements ShouldBroadcastNow
     public function __construct(Message $message)
     {
         $this->message = $message->load('sender');
+        Log::info("NewMessageSent disparado para chat_id {$message->chat_id}");
     }
 
     public function broadcastOn()
@@ -28,11 +29,6 @@ class NewMessageSent implements ShouldBroadcastNow
 
     public function broadcastWith()
     {
-        $user = User::find($this->message->sender_id);
-        if (!$user) {
-            Log::error('User not found for message ID: ' . $this->message->id);
-            return [];
-        }
         return [
             'id' => $this->message->id,
             'chat_id' => $this->message->chat_id,
@@ -41,7 +37,7 @@ class NewMessageSent implements ShouldBroadcastNow
             'created_at' => $this->message->created_at->toDateTimeString(),
             'sender' => [
                 'id' => $this->message->sender->id,
-                'name' => $user->firstname . ' ' . $user->lastname,
+                'name' => $this->message->sender->firstname . ' ' . $this->message->sender->lastname,
             ],
         ];
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
 
 require __DIR__ . '/auth.php';
 
@@ -24,3 +25,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('driver-blocks', App\Http\Controllers\DriverBlockController::class);
     Route::apiResource('commissions', App\Http\Controllers\CommissionController::class);
 });
+
+Route::post('/broadcasting/auth', function (Request $request) {
+    return Broadcast::auth($request);
+})->middleware('auth:sanctum');

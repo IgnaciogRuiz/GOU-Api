@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Events\NewMessageSent;
+use App\Events\Chats\NewMessageSent;
 use App\Events\MessageUpdated;
 use App\Events\MessageRead;
 use App\Events\MessageDeleted;
